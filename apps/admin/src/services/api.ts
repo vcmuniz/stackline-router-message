@@ -154,6 +154,62 @@ export const dashboardApi = {
     api.get('/dashboard/charts', { params: { period } })
 };
 
+// APIs de API Keys
+export const apiKeysApi = {
+  // Listar todas
+  list: () => api.get('/api/api-keys'),
+
+  // Criar nova
+  create: (data: {
+    name: string;
+    permissions: string[];
+    rateLimit?: number;
+    expiresAt?: string;
+  }) => api.post('/api/api-keys', data),
+
+  // Atualizar
+  update: (id: string, data: {
+    name?: string;
+    permissions?: string[];
+    rateLimit?: number;
+    enabled?: boolean;
+    expiresAt?: string;
+  }) => api.put(`/api/api-keys/${id}`, data),
+
+  // Deletar
+  delete: (id: string) => api.delete(`/api/api-keys/${id}`)
+};
+
+// APIs de Webhooks
+export const webhooksApi = {
+  // Listar todos
+  list: () => api.get('/api/webhooks'),
+
+  // Criar novo
+  create: (data: {
+    name: string;
+    url: string;
+    events: string[];
+  }) => api.post('/api/webhooks', data),
+
+  // Atualizar
+  update: (id: string, data: {
+    name?: string;
+    url?: string;
+    events?: string[];
+    enabled?: boolean;
+  }) => api.put(`/api/webhooks/${id}`, data),
+
+  // Deletar
+  delete: (id: string) => api.delete(`/api/webhooks/${id}`),
+
+  // Testar webhook
+  test: (id: string) => api.post(`/api/webhooks/${id}/test`),
+
+  // Obter logs
+  getLogs: (id: string) => api.get(`/api/webhooks/${id}/logs`)
+};
+
 // APIs de Autenticação
 export const authApi = {
   // Login

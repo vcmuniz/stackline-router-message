@@ -41,6 +41,8 @@ import {
   Analytics,
   Support,
   Cable,
+  Key as KeyIcon,
+  Webhook as WebhookIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -114,6 +116,18 @@ export default function Layout({ children }: LayoutProps) {
       icon: <ContactsIcon />,
       path: '/contacts',
       badge: '156',
+    },
+    {
+      text: 'API Keys',
+      icon: <KeyIcon />,
+      path: '/api-keys',
+      badge: null,
+    },
+    {
+      text: 'Webhooks',
+      icon: <WebhookIcon />,
+      path: '/webhooks',
+      badge: null,
     },
     {
       text: 'Analytics',

@@ -1,0 +1,27 @@
+
+> dev
+> nodemon --exec ts-node src/index.ts
+
+[33m[nodemon] 3.1.10[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: ts,json[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Realtime server on 4500
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+/app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)

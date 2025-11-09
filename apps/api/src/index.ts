@@ -8,6 +8,9 @@ import integrationsRouter from './routes/integrations';
 import messagesRouter from './routes/messages';
 import contactsRouter from './routes/contacts';
 import webhookRouter from './routes/webhook';
+import v1Router from './routes/v1';
+import apiKeysRouter from './routes/apiKeys';
+import webhooksRouter from './routes/webhooks';
 
 dotenv.config();
 const app = express();
@@ -25,7 +28,10 @@ app.use('/dashboard', dashboardRouter);
 app.use('/api/integrations', integrationsRouter);
 app.use('/api/messages', messagesRouter);
 app.use('/api/contacts', contactsRouter);
+app.use('/api/api-keys', apiKeysRouter);
+app.use('/api/webhooks', webhooksRouter);
 app.use('/webhook', webhookRouter);
+app.use('/v1', v1Router); // API Pública
 
 // Dashboard de filas (desenvolvimento)
 if (process.env.NODE_ENV !== 'production') {

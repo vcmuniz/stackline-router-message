@@ -9,3 +9,5 @@ export * from '@prisma/client';
 export * from './services/evolutionApi';
 export * from './services/queueService';
 export * from './services/smtpService';
+export * from './services/messageQueueService';
+export * from './services/webhookService';

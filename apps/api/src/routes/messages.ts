@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { PrismaClient, evolutionManager, smtpManager } from 'database';
+import { PrismaClient, evolutionManager, smtpManager, messageQueueService, webhookService } from 'database';
 import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
@@ -149,117 +149,40 @@ router.post('/send', authMiddleware, async (req: any, res) => {
       return res.status(400).json({ error: 'Integration is not active' });
     }
 
-    // Buscar ou criar contato
-    let contact = await prisma.contact.findFirst({
-      where: {
-        integrationId,
-        OR: [
-          { phoneNumber: toContact.phoneNumber },
-          { email: toContact.email },
-          { telegramId: toContact.telegramId }
-        ]
-      }
-    });
-
-    if (!contact) {
-      contact = await prisma.contact.create({
-        data: {
-          integrationId,
-          phoneNumber: toContact.phoneNumber,
-          email: toContact.email,
-          telegramId: toContact.telegramId,
-          name: toContact.name
-        }
-      });
-    }
-
-    // Criar mensagem
-    const message = await prisma.message.create({
-      data: {
-        integrationId,
-        toContactId: contact.id,
-        content,
-        mediaUrl,
-        mediaType,
-        direction: 'OUTBOUND',
-        status: 'PENDING',
+    // Usar messageQueueService com forceImmediate para envio direto via chat UI
+    const queueMessage = await messageQueueService.createQueueMessage({
+      userId: req.userId,
+      integrationId,
+      toPhone: toContact.phoneNumber,
+      toEmail: toContact.email,
+      toTelegramId: toContact.telegramId,
+      toName: toContact.name,
+      content,
+      mediaUrl,
+      mediaType,
+      forceImmediate: true, // Envio imediato
+      metadata: {
         replyToId,
-        threadId: threadId || undefined
-      },
-      include: {
-        integration: true,
-        toContact: true
+        threadId
       }
     });
 
-    // Enviar mensagem através do serviço apropriado
-    try {
-      switch (integration.type) {
-        case 'WHATSAPP_EVOLUTION':
-        case 'WHATSAPP_BAILEYS':
-          // Enviar via Evolution API
-          const result = await evolutionManager.sendMessage(
-            integrationId,
-            contact.phoneNumber!,
-            content,
-            mediaUrl,
-            mediaType
-          );
+    // Buscar mensagem criada após processamento
+    const message = await prisma.messageQueue.findUnique({
+      where: { id: queueMessage.id }
+    });
 
-          // Atualizar mensagem com ID externo e status
-          await prisma.message.update({
-            where: { id: message.id },
-            data: {
-              externalId: result.messageId,
-              status: 'SENT',
-              sentAt: new Date()
-            }
-          });
-          break;
-
-        case 'SMTP':
-          // Enviar via SMTP
-          await smtpManager.sendEmail(
-            integrationId,
-            contact.email!,
-            'Nova Mensagem',
-            content
-          );
-
-          await prisma.message.update({
-            where: { id: message.id },
-            data: {
-              status: 'SENT',
-              sentAt: new Date()
-            }
-          });
-          break;
-
-        default:
-          // Outros tipos ainda não implementados
-          console.log(`Envio não implementado para tipo: ${integration.type}`);
-      }
-    } catch (sendError) {
-      console.error('Error sending message:', sendError);
-
-      // Marcar como falhou
-      await prisma.message.update({
-        where: { id: message.id },
-        data: {
-          status: 'FAILED',
-          failedAt: new Date(),
-          errorMessage: String(sendError)
-        }
+    // Enviar webhook de mensagem enviada
+    if (message && message.status === 'SENT') {
+      await webhookService.sendEvent(req.userId, 'message.sent', {
+        messageId: message.id,
+        integrationId,
+        toContact,
+        content,
+        status: message.status,
+        sentAt: message.sentAt
       });
     }
-
-    // Atualizar contador da integração
-    await prisma.integration.update({
-      where: { id: integrationId },
-      data: {
-        messagesSent: { increment: 1 }
-      }
-    });
 
     res.status(201).json(message);
   } catch (error) {
@@ -306,9 +229,21 @@ router.patch('/:id/status', authMiddleware, async (req: any, res) => {
           where: { id: message.integrationId },
           data: { messagesDelivered: { increment: 1 } }
         });
+        // Webhook de mensagem entregue
+        await webhookService.sendEvent(req.userId, 'message.delivered', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          deliveredAt: updateData.deliveredAt
+        });
         break;
       case 'READ':
         updateData.readAt = new Date();
+        // Webhook de mensagem lida
+        await webhookService.sendEvent(req.userId, 'message.read', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          readAt: updateData.readAt
+        });
         break;
       case 'FAILED':
         updateData.failedAt = new Date();
@@ -316,6 +251,13 @@ router.patch('/:id/status', authMiddleware, async (req: any, res) => {
         await prisma.integration.update({
           where: { id: message.integrationId },
           data: { messagesFailed: { increment: 1 } }
+        });
+        // Webhook de mensagem falhada
+        await webhookService.sendEvent(req.userId, 'message.failed', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          errorMessage,
+          failedAt: updateData.failedAt
         });
         break;
     }
