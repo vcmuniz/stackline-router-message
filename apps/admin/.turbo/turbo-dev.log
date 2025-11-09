@@ -1,0 +1,24 @@
+
+> dev
+> vite
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  VITE v5.4.21  ready in 275 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://172.27.0.6:5173/
+8:25:17 PM [vite] hmr update /src/components/Layout.tsx
+8:28:00 PM [vite] hmr update /src/App.tsx
+8:28:11 PM [vite] hmr update /src/App.tsx
+8:32:05 PM [vite] hmr update /src/App.tsx
+8:32:16 PM [vite] hmr update /src/App.tsx
+8:37:22 PM [vite] hmr update /src/pages/Messages.tsx
+8:40:48 PM [vite] hmr update /src/pages/Messages.tsx
+8:41:00 PM [vite] hmr update /src/pages/Messages.tsx
+8:41:08 PM [vite] hmr update /src/pages/Messages.tsx
+8:41:19 PM [vite] hmr update /src/pages/Messages.tsx
+8:41:31 PM [vite] hmr update /src/pages/Messages.tsx
+8:41:48 PM [vite] hmr update /src/pages/Messages.tsx
+8:42:35 PM [vite] hmr update /src/pages/Messages.tsx
+8:43:22 PM [vite] hmr update /src/pages/Messages.tsx

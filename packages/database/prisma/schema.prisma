@@ -1,0 +1,214 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum IntegrationType {
+  SMTP
+  WHATSAPP_EVOLUTION
+  WHATSAPP_BAILEYS
+  SMS_TWILIO
+  SMS_ZENVIA
+  TELEGRAM
+}
+
+enum IntegrationStatus {
+  ACTIVE
+  INACTIVE
+  ERROR
+  PENDING
+}
+
+enum MessageStatus {
+  PENDING
+  SENT
+  DELIVERED
+  READ
+  FAILED
+  RECEIVED
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+// Models
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  integrations Integration[]
+}
+
+model Integration {
+  id          String            @id @default(uuid())
+  name        String
+  type        IntegrationType
+  status      IntegrationStatus @default(PENDING)
+  webhookUrl  String?           @unique
+  webhookKey  String?
+
+  // Configurações específicas (JSON)
+  config      Json
+
+  // Metadados
+  metadata    Json?
+  lastSync    DateTime?
+  errorLog    String?           @db.Text
+
+  // Estatísticas
+  messagesSent     Int      @default(0)
+  messagesReceived Int      @default(0)
+  messagesDelivered Int     @default(0)
+  messagesFailed   Int      @default(0)
+
+  // Relacionamentos
+  userId      Int
+  user        User              @relation(fields: [userId], references: [id])
+  messages    Message[]
+  contacts    Contact[]
+
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([webhookUrl])
+  @@index([type, status])
+  @@index([userId])
+}
+
+model Contact {
+  id            String       @id @default(uuid())
+
+  // Identificadores
+  phoneNumber   String?
+  email         String?
+  telegramId    String?
+
+  // Informações
+  name          String?
+  avatar        String?
+  metadata      Json?
+  tags          String?      @db.Text
+
+  // Relacionamentos
+  integrationId String
+  integration   Integration  @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@unique([phoneNumber, integrationId])
+  @@unique([email, integrationId])
+  @@index([phoneNumber])
+  @@index([email])
+  @@index([integrationId])
+}
+
+model Message {
+  id            String           @id @default(uuid())
+
+  // Identificação
+  externalId    String?
+  direction     MessageDirection
+  status        MessageStatus    @default(PENDING)
+
+  // Conteúdo
+  content       String?          @db.Text
+  mediaUrl      String?          @db.Text
+  mediaType     String?
+
+  // Metadados
+  metadata      Json?
+  headers       Json?
+
+  // Timestamps
+  sentAt        DateTime?
+  deliveredAt   DateTime?
+  readAt        DateTime?
+  failedAt      DateTime?
+
+  // Erro
+  errorMessage  String?          @db.Text
+
+  // Relacionamentos
+  integrationId String
+  integration   Integration      @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+
+  fromContactId String?
+  fromContact   Contact?         @relation("SentMessages", fields: [fromContactId], references: [id])
+
+  toContactId   String?
+  toContact     Contact?         @relation("ReceivedMessages", fields: [toContactId], references: [id])
+
+  // Thread
+  threadId      String?
+  replyToId     String?
+  replyTo       Message?         @relation("MessageReplies", fields: [replyToId], references: [id])
+  replies       Message[]        @relation("MessageReplies")
+
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([externalId, integrationId])
+  @@index([status])
+  @@index([direction])
+  @@index([threadId])
+  @@index([createdAt])
+  @@index([integrationId])
+}
+
+model WebhookLog {
+  id            String   @id @default(uuid())
+  url           String
+  method        String
+  headers       Json
+  body          Json?
+  response      Json?
+  statusCode    Int?
+  processed     Boolean  @default(false)
+  error         String?  @db.Text
+
+  createdAt     DateTime @default(now())
+
+  @@index([url])
+  @@index([processed])
+  @@index([createdAt])
+}
+
+model MessageTemplate {
+  id            String          @id @default(uuid())
+  name          String
+  type          IntegrationType
+  content       String          @db.Text
+  variables     Json?
+  metadata      Json?
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([type])
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.Text
+  type      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

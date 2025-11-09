@@ -1,0 +1,32 @@
+{
+  "name": "api",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon --watch src --watch ../../packages/database/src --exec ts-node src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "echo 'no lint'"
+  },
+  "dependencies": {
+    "@bull-board/api": "^5.9.1",
+    "@bull-board/express": "^5.9.1",
+    "database": "*",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/bull": "^3.15.9",
+    "@types/nodemailer": "^7.0.3",
+    "axios": "^1.6.2",
+    "bcryptjs": "^3.0.3",
+    "bull": "^4.11.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

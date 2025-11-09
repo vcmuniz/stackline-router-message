@@ -1,0 +1,335 @@
+
+> dev
+> nodemon --watch src --watch ../../packages/database/src --exec ts-node src/index.ts
+
+[33m[nodemon] 3.1.10[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): src/**/* ../../packages/database/src/**/*[39m
+[33m[nodemon] watching extensions: ts,json[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+Evolution instance created for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
+Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'connection.update',
+  timestamp: '2025-11-09T20:14:44.296Z'
+}
+📦 Payload: {
+  "event": "connection.update",
+  "instance": "at01",
+  "data": {
+    "instance": "at01",
+    "state": "connecting",
+    "statusReason": 200
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-09T17:14:43.661Z",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'connection.update',
+  timestamp: '2025-11-09T20:14:48.455Z'
+}
+📦 Payload: {
+  "event": "connection.update",
+  "instance": "at01",
+  "data": {
+    "instance": "at01",
+    "wuid": "5521971817825@s.whatsapp.net",
+    "profileName": "Victor Muniz",
+    "profilePictureUrl": null,
+    "state": "open",
+    "statusReason": 200
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-09T17:14:47.921Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.upsert',
+  timestamp: '2025-11-09T20:16:44.573Z'
+}
+📦 Payload: {
+  "event": "messages.upsert",
+  "instance": "at01",
+  "data": {
+    "key": {
+      "remoteJid": "5521991856227@s.whatsapp.net",
+      "remoteJidAlt": "247918464364600@lid",
+      "fromMe": false,
+      "id": "AC9AEE0550761A6000AF370C104DA823",
+      "participant": "",
+      "addressingMode": "pn"
+    },
+    "pushName": "Victor Muniz",
+    "status": "DELIVERY_ACK",
+    "message": {
+      "conversation": "Oi",
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyIndexes": [],
+          "recipientKeyIndexes": [],
+          "senderKeyHash": {
+            "0": 98,
+            "1": 57,
+            "2": 54,
+            "3": 91,
+            "4": 29,
+            "5": 210,
+            "6": 95,
+            "7": 208,
+            "8": 75,
+            "9": 10
+          },
+          "senderTimestamp": {
+            "low": 1762705218,
+            "high": 0,
+            "unsigned": true
+          },
+          "recipientKeyHash": {
+            "0": 206,
+            "1": 114,
+            "2": 38,
+            "3": 173,
+            "4": 132,
+            "5": 130,
+            "6": 85,
+            "7": 89,
+            "8": 252,
+            "9": 247
+          },
+          "recipientTimestamp": {
+            "low": 1762719279,
+            "high": 0,
+            "unsigned": true
+          }
+        },
+        "deviceListMetadataVersion": 2,
+        "messageSecret": {
+          "0": 12,
+          "1": 77,
+          "2": 13,
+          "3": 25,
+          "4": 16,
+          "5": 151,
+          "6": 34,
+          "7": 90,
+          "8": 67,
+          "9": 147,
+          "10": 202,
+          "11": 167,
+          "12": 4,
+          "13": 249,
+          "14": 11,
+          "15": 224,
+          "16": 146,
+          "17": 186,
+          "18": 205,
+          "19": 174,
+          "20": 134,
+          "21": 59,
+          "22": 17,
+          "23": 32,
+          "24": 189,
+          "25": 232,
+          "26": 103,
+          "27": 149,
+          "28": 13,
+          "29": 22,
+          "30": 38,
+          "31": 150
+        }
+      }
+    },
+    "messageType": "conversation",
+    "messageTimestamp": 1762719403,
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "source": "android"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-09T17:16:43.814Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+Error processing Evolution webhook: TypeError: Cannot read properties of undefined (reading 'fromMe')
+    at processEvolutionWebhook (/app/apps/api/src/routes/webhook.ts:237:16)
+    at /app/apps/api/src/routes/webhook.ts:81:29
+    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/app/node_modules/express/lib/router/route.js:149:13)
+    at validateWebhook (/app/apps/api/src/routes/webhook.ts:34:5)
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.upsert',
+  timestamp: '2025-11-09T20:18:27.107Z'
+}
+📦 Payload: {
+  "event": "messages.upsert",
+  "instance": "at01",
+  "data": {
+    "key": {
+      "remoteJid": "5521991856227@s.whatsapp.net",
+      "remoteJidAlt": "247918464364600@lid",
+      "fromMe": false,
+      "id": "ACAA5D477F6EAB20403573CE42A1024E",
+      "participant": "",
+      "addressingMode": "pn"
+    },
+    "pushName": "Victor Muniz",
+    "status": "DELIVERY_ACK",
+    "message": {
+      "conversation": "Oi 2",
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyIndexes": [],
+          "recipientKeyIndexes": [],
+          "senderKeyHash": {
+            "0": 98,
+            "1": 57,
+            "2": 54,
+            "3": 91,
+            "4": 29,
+            "5": 210,
+            "6": 95,
+            "7": 208,
+            "8": 75,
+            "9": 10
+          },
+          "senderTimestamp": {
+            "low": 1762705218,
+            "high": 0,
+            "unsigned": true
+          },
+          "recipientKeyHash": {
+            "0": 206,
+            "1": 114,
+            "2": 38,
+            "3": 173,
+            "4": 132,
+            "5": 130,
+            "6": 85,
+            "7": 89,
+            "8": 252,
+            "9": 247
+          },
+          "recipientTimestamp": {
+            "low": 1762719279,
+            "high": 0,
+            "unsigned": true
+          }
+        },
+        "deviceListMetadataVersion": 2,
+        "messageSecret": {
+          "0": 121,
+          "1": 156,
+          "2": 191,
+          "3": 127,
+          "4": 223,
+          "5": 106,
+          "6": 42,
+          "7": 141,
+          "8": 145,
+          "9": 116,
+          "10": 161,
+          "11": 198,
+          "12": 169,
+          "13": 158,
+          "14": 72,
+          "15": 27,
+          "16": 87,
+          "17": 81,
+          "18": 179,
+          "19": 235,
+          "20": 207,
+          "21": 70,
+          "22": 184,
+          "23": 26,
+          "24": 175,
+          "25": 207,
+          "26": 36,
+          "27": 58,
+          "28": 184,
+          "29": 123,
+          "30": 35,
+          "31": 155
+        }
+      }
+    },
+    "messageType": "conversation",
+    "messageTimestamp": 1762719506,
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "source": "android"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-09T17:18:26.495Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+/app/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/routes/messages.ts(222,29): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
+
+    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19) {
+  diagnosticCodes: [ 2339 ]
+}
