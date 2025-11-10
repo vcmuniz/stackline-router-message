@@ -10,14 +10,19 @@ declare global {
   }
 }
 
-const API_URL = window.APP_CONFIG?.API_URL || import.meta.env.VITE_API_URL || 'http://localhost:4000';
-
-// Criar instância do axios
+// Criar instância do axios (baseURL vazio, será setado no interceptor)
 const api = axios.create({
-  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json'
   }
+});
+
+// Interceptor para setar baseURL dinamicamente
+api.interceptors.request.use((config) => {
+  // Usar runtime config se disponível, senão usar env, senão localhost
+  const baseURL = window.APP_CONFIG?.API_URL || import.meta.env.VITE_API_URL || 'http://localhost:4000';
+  config.baseURL = baseURL;
+  return config;
 });
 
 // Interceptor para adicionar token
