@@ -4,29 +4,75 @@
 
 [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
 
-  VITE v5.4.21  ready in 275 ms
+  VITE v5.4.21  ready in 279 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: http://172.27.0.6:5173/
-8:25:17 PM [vite] hmr update /src/components/Layout.tsx
-8:28:00 PM [vite] hmr update /src/App.tsx
-8:28:11 PM [vite] hmr update /src/App.tsx
-8:32:05 PM [vite] hmr update /src/App.tsx
-8:32:16 PM [vite] hmr update /src/App.tsx
-8:37:22 PM [vite] hmr update /src/pages/Messages.tsx
-8:40:48 PM [vite] hmr update /src/pages/Messages.tsx
-8:41:00 PM [vite] hmr update /src/pages/Messages.tsx
-8:41:08 PM [vite] hmr update /src/pages/Messages.tsx
-8:41:19 PM [vite] hmr update /src/pages/Messages.tsx
-8:41:31 PM [vite] hmr update /src/pages/Messages.tsx
-8:41:48 PM [vite] hmr update /src/pages/Messages.tsx
-8:42:35 PM [vite] hmr update /src/pages/Messages.tsx
-8:43:22 PM [vite] hmr update /src/pages/Messages.tsx
-8:47:33 PM [vite] hmr update /src/pages/Messages.tsx
-8:47:45 PM [vite] hmr update /src/pages/Messages.tsx
-8:47:59 PM [vite] hmr update /src/pages/Messages.tsx
-8:48:13 PM [vite] hmr update /src/pages/Messages.tsx
-8:48:22 PM [vite] hmr update /src/pages/Messages.tsx
-9:57:44 PM [vite] hmr update /src/App.tsx
-9:57:57 PM [vite] hmr update /src/components/Layout.tsx
-9:58:09 PM [vite] hmr update /src/components/Layout.tsx
+8:57:39 AM [vite] hmr update /src/App.tsx
+8:57:57 AM [vite] hmr update /src/App.tsx
+8:58:54 AM [vite] hmr update /src/components/Layout.tsx
+8:58:54 AM [vite] Internal server error: /app/apps/admin/src/components/Layout.tsx: Unexpected token (141:4)
+
+  139 |   const bottomItems = [
+  140 |     {
+> 141 |     { text: 'Documentação API', icon: Code, path: '/documentacao' },
+      |     ^
+  142 |       text: 'Configurações',
+  143 |       icon: <SettingsIcon />,
+  144 |       path: '/settings',
+  Plugin: vite:react-babel
+  File: /app/apps/admin/src/components/Layout.tsx:141:4
+  139|    const bottomItems = [
+  140|      {
+  141|      { text: 'Documentação API', icon: Code, path: '/documentacao' },
+     |      ^
+  142|        text: 'Configurações',
+  143|        icon: <SettingsIcon />,
+      at constructor (/app/node_modules/@babel/parser/lib/index.js:367:19)
+      at TypeScriptParserMixin.raise (/app/node_modules/@babel/parser/lib/index.js:6624:19)
+      at TypeScriptParserMixin.unexpected (/app/node_modules/@babel/parser/lib/index.js:6644:16)
+      at TypeScriptParserMixin.parsePropertyName (/app/node_modules/@babel/parser/lib/index.js:12098:18)
+      at TypeScriptParserMixin.parsePropertyDefinition (/app/node_modules/@babel/parser/lib/index.js:11963:10)
+      at TypeScriptParserMixin.parseObjectLike (/app/node_modules/@babel/parser/lib/index.js:11904:21)
+      at TypeScriptParserMixin.parseExprAtom (/app/node_modules/@babel/parser/lib/index.js:11403:23)
+      at TypeScriptParserMixin.parseExprAtom (/app/node_modules/@babel/parser/lib/index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/app/node_modules/@babel/parser/lib/index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (/app/node_modules/@babel/parser/lib/index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/app/node_modules/@babel/parser/lib/index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/app/node_modules/@babel/parser/lib/index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/app/node_modules/@babel/parser/lib/index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (/app/node_modules/@babel/parser/lib/index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/app/node_modules/@babel/parser/lib/index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/app/node_modules/@babel/parser/lib/index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/app/node_modules/@babel/parser/lib/index.js:9839:20)
+      at /app/node_modules/@babel/parser/lib/index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (/app/node_modules/@babel/parser/lib/index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/app/node_modules/@babel/parser/lib/index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (/app/node_modules/@babel/parser/lib/index.js:12567:17)
+      at TypeScriptParserMixin.parseExprListItem (/app/node_modules/@babel/parser/lib/index.js:12249:18)
+      at TypeScriptParserMixin.parseExprList (/app/node_modules/@babel/parser/lib/index.js:12224:22)
+      at TypeScriptParserMixin.parseArrayLike (/app/node_modules/@babel/parser/lib/index.js:12131:26)
+      at TypeScriptParserMixin.parseArrayLike (/app/node_modules/@babel/parser/lib/index.js:9244:24)
+      at TypeScriptParserMixin.parseExprAtom (/app/node_modules/@babel/parser/lib/index.js:11399:23)
+      at TypeScriptParserMixin.parseExprAtom (/app/node_modules/@babel/parser/lib/index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/app/node_modules/@babel/parser/lib/index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (/app/node_modules/@babel/parser/lib/index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/app/node_modules/@babel/parser/lib/index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/app/node_modules/@babel/parser/lib/index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/app/node_modules/@babel/parser/lib/index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (/app/node_modules/@babel/parser/lib/index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/app/node_modules/@babel/parser/lib/index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/app/node_modules/@babel/parser/lib/index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/app/node_modules/@babel/parser/lib/index.js:9839:20)
+      at /app/node_modules/@babel/parser/lib/index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (/app/node_modules/@babel/parser/lib/index.js:12495:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/app/node_modules/@babel/parser/lib/index.js:10864:17)
+      at TypeScriptParserMixin.parseVar (/app/node_modules/@babel/parser/lib/index.js:13460:91)
+      at TypeScriptParserMixin.parseVarStatement (/app/node_modules/@babel/parser/lib/index.js:13306:10)
+      at TypeScriptParserMixin.parseVarStatement (/app/node_modules/@babel/parser/lib/index.js:9469:31)
+      at TypeScriptParserMixin.parseStatementContent (/app/node_modules/@babel/parser/lib/index.js:12927:23)
+      at TypeScriptParserMixin.parseStatementContent (/app/node_modules/@babel/parser/lib/index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (/app/node_modules/@babel/parser/lib/index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (/app/node_modules/@babel/parser/lib/index.js:12823:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/app/node_modules/@babel/parser/lib/index.js:13392:61)
+      at TypeScriptParserMixin.parseBlockBody (/app/node_modules/@babel/parser/lib/index.js:13385:10)

@@ -46,7 +46,6 @@ router.post('/messages/send', requirePermission('messages:send'), async (req: an
 
     // Criar na fila
     const queueMessage = await messageQueueService.createQueueMessage({
-      userId: req.userId,
       integrationId,
       toPhone: phone,
       toEmail: email,
@@ -79,21 +78,24 @@ router.get('/messages', requirePermission('messages:read'), async (req: any, res
   try {
     const { status, limit = 50, offset = 0 } = req.query;
 
-    const where: any = { userId: req.userId };
+    const where: any = {
+      integration: { userId: req.userId },
+      direction: 'OUTBOUND'
+    };
     if (status) where.status = status;
 
     const [messages, total] = await Promise.all([
-      prisma.messageQueue.findMany({
+      prisma.message.findMany({
         where,
         include: {
           integration: { select: { id: true, name: true, type: true } },
-          _count: { select: { attempts: true } }
+          toContact: { select: { name: true, phoneNumber: true, email: true } }
         },
         orderBy: { createdAt: 'desc' },
         take: parseInt(limit),
         skip: parseInt(offset)
       }),
-      prisma.messageQueue.count({ where })
+      prisma.message.count({ where })
     ]);
 
     res.json({
@@ -114,16 +116,15 @@ router.get('/messages', requirePermission('messages:read'), async (req: any, res
 // GET /v1/messages/:id - Detalhes da mensagem
 router.get('/messages/:id', requirePermission('messages:read'), async (req: any, res) => {
   try {
-    const message = await prisma.messageQueue.findFirst({
+    const message = await prisma.message.findFirst({
       where: {
         id: req.params.id,
-        userId: req.userId
+        integration: { userId: req.userId }
       },
       include: {
         integration: true,
-        attempts: {
-          orderBy: { attemptNumber: 'asc' }
-        }
+        toContact: true,
+        fromContact: true
       }
     });
 
@@ -141,8 +142,24 @@ router.get('/messages/:id', requirePermission('messages:read'), async (req: any,
 // POST /v1/messages/:id/cancel - Cancelar mensagem
 router.post('/messages/:id/cancel', requirePermission('messages:send'), async (req: any, res) => {
   try {
-    const result = await messageQueueService.cancelMessage(req.params.id, req.userId);
-    res.json(result);
+    const message = await prisma.message.findFirst({
+      where: {
+        id: req.params.id,
+        integration: { userId: req.userId },
+        status: 'PENDING'
+      }
+    });
+
+    if (!message) {
+      return res.status(404).json({ error: 'Message not found or cannot be cancelled' });
+    }
+
+    await prisma.message.update({
+      where: { id: req.params.id },
+      data: { status: 'FAILED', errorMessage: 'Cancelled by user' }
+    });
+
+    res.json({ success: true });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -151,8 +168,21 @@ router.post('/messages/:id/cancel', requirePermission('messages:send'), async (r
 // GET /v1/messages/stats - Estatísticas
 router.get('/messages/stats', requirePermission('messages:read'), async (req: any, res) => {
   try {
-    const stats = await messageQueueService.getQueueStats(req.userId);
-    res.json({ success: true, data: stats });
+    const stats = await prisma.message.groupBy({
+      by: ['status'],
+      where: {
+        integration: { userId: req.userId },
+        direction: 'OUTBOUND'
+      },
+      _count: true
+    });
+
+    const result = stats.reduce((acc: any, stat: any) => {
+      acc[stat.status.toLowerCase()] = stat._count;
+      return acc;
+    }, { pending: 0, sent: 0, delivered: 0, read: 0, failed: 0, received: 0 });
+
+    res.json({ success: true, data: result });
   } catch (error) {
     console.error('Error fetching stats:', error);
     res.status(500).json({ error: 'Failed to fetch stats' });

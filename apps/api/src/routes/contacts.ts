@@ -53,8 +53,43 @@ router.get('/', authMiddleware, async (req: any, res) => {
       prisma.contact.count({ where })
     ]);
 
+    // Buscar última mensagem e contagem de não lidas para cada contato
+    const contactsWithLastMessage = await Promise.all(
+      contacts.map(async (contact) => {
+        const [lastMessage, unreadCount] = await Promise.all([
+          prisma.message.findFirst({
+            where: {
+              OR: [
+                { fromContactId: contact.id },
+                { toContactId: contact.id }
+              ]
+            },
+            select: {
+              content: true,
+              createdAt: true,
+              direction: true
+            },
+            orderBy: { createdAt: 'desc' }
+          }),
+          prisma.message.count({
+            where: {
+              fromContactId: contact.id,
+              direction: 'INBOUND',
+              status: 'RECEIVED'
+            }
+          })
+        ]);
+
+        return {
+          ...contact,
+          lastMessage,
+          unreadCount
+        };
+      })
+    );
+
     res.json({
-      contacts,
+      contacts: contactsWithLastMessage,
       pagination: {
         page: Number(page),
         limit: Number(limit),

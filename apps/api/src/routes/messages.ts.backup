@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { PrismaClient, messageQueueService, webhookService, Prisma } from 'database';
+import { PrismaClient, evolutionManager, smtpManager, messageQueueService, webhookService } from 'database';
 import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
 const prisma = new PrismaClient();
 
-// GET / - Listar mensagens com filtros
+// Listar mensagens com filtros
 router.get('/', authMiddleware, async (req: any, res) => {
   try {
     const {
@@ -40,32 +40,28 @@ router.get('/', authMiddleware, async (req: any, res) => {
     ];
     if (threadId) where.threadId = threadId;
 
-    // Para scroll infinito: buscar as N mais RECENTES e depois ordenar ASC
-    const total = await prisma.message.count({ where });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
 
-    // Buscar TODAS as mensagens dessa conversa (não tem muitas, performance ok)
-    const allMessages = await prisma.message.findMany({
-      where,
-      include: {
-        integration: { select: { name: true, type: true } },
-        fromContact: true,
-        toContact: true
-      }
-    });
-
-    // Ordenar por COALESCE(deliveredAt, sentAt, createdAt) ASC
-    const sorted = allMessages.sort((a, b) => {
-      const dateA = new Date(a.deliveredAt || a.sentAt || a.createdAt).getTime();
-      const dateB = new Date(b.deliveredAt || b.sentAt || b.createdAt).getTime();
-      return dateA - dateB;
-    });
-
-    // Paginação reversa: para página 1, pegar as últimas 20
-    // Para página 2, pegar as 20 anteriores, etc
-    const totalPages = Math.ceil(total / parseInt(limit));
-    const reversePage = totalPages - parseInt(page) + 1;
-    const startIdx = (reversePage - 1) * parseInt(limit);
-    const messages = sorted.slice(startIdx, startIdx + parseInt(limit));
+    const [messages, total] = await Promise.all([
+      prisma.message.findMany({
+        where,
+        include: {
+          integration: {
+            select: {
+              name: true,
+              type: true
+            }
+          },
+          fromContact: true,
+          toContact: true,
+          replyTo: true
+        },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: parseInt(limit)
+      }),
+      prisma.message.count({ where })
+    ]);
 
     res.json({
       messages,
@@ -82,7 +78,7 @@ router.get('/', authMiddleware, async (req: any, res) => {
   }
 });
 
-// GET /:id - Buscar mensagem por ID
+// Buscar mensagem por ID
 router.get('/:id', authMiddleware, async (req: any, res) => {
   try {
     const message = await prisma.message.findUnique({
@@ -124,7 +120,7 @@ router.get('/:id', authMiddleware, async (req: any, res) => {
   }
 });
 
-// POST /send - Enviar mensagem usando messageQueueService
+// Enviar mensagem
 router.post('/send', authMiddleware, async (req: any, res) => {
   try {
     const {
@@ -153,7 +149,7 @@ router.post('/send', authMiddleware, async (req: any, res) => {
       return res.status(400).json({ error: 'Integration is not active' });
     }
 
-    // Usar messageQueueService com forceImmediate para envio direto
+    // Usar messageQueueService com forceImmediate para envio direto via chat UI
     const message = await messageQueueService.createQueueMessage({
       integrationId,
       toPhone: toContact.phoneNumber,
@@ -178,7 +174,7 @@ router.post('/send', authMiddleware, async (req: any, res) => {
   }
 });
 
-// PATCH /:id/status - Atualizar status da mensagem
+// Atualizar status (webhook da Evolution chama isso)
 router.patch('/:id/status', authMiddleware, async (req: any, res) => {
   try {
     const { status, errorMessage } = req.body;
@@ -195,42 +191,30 @@ router.patch('/:id/status', authMiddleware, async (req: any, res) => {
       return res.status(404).json({ error: 'Message not found' });
     }
 
-    const updateData: any = { status };
-
-    // Atualizar timestamps baseado no status
-    if (status === 'DELIVERED') {
-      updateData.deliveredAt = new Date();
-    } else if (status === 'READ') {
-      updateData.readAt = new Date();
-    } else if (status === 'FAILED') {
-      updateData.failedAt = new Date();
-      updateData.errorMessage = errorMessage;
-    }
-
     const updated = await prisma.message.update({
       where: { id: req.params.id },
-      data: updateData
+      data: {
+        status,
+        errorMessage,
+        deliveredAt: status === 'DELIVERED' ? new Date() : undefined,
+        readAt: status === 'READ' ? new Date() : undefined,
+        failedAt: status === 'FAILED' ? new Date() : undefined
+      }
     });
 
-    // Enviar webhook de acordo com o status
+    // Enviar webhook de status
     if (status === 'DELIVERED') {
       await webhookService.sendEvent(message.integration.userId, 'message.delivered', {
-        messageId: updated.id,
-        integrationId: message.integrationId,
-        deliveredAt: updated.deliveredAt
+        messageId: updated.id
       });
     } else if (status === 'READ') {
       await webhookService.sendEvent(message.integration.userId, 'message.read', {
-        messageId: updated.id,
-        integrationId: message.integrationId,
-        readAt: updated.readAt
+        messageId: updated.id
       });
     } else if (status === 'FAILED') {
       await webhookService.sendEvent(message.integration.userId, 'message.failed', {
         messageId: updated.id,
-        integrationId: message.integrationId,
-        error: updated.errorMessage,
-        failedAt: updated.failedAt
+        error: updated.errorMessage
       });
     }
 
@@ -241,7 +225,91 @@ router.patch('/:id/status', authMiddleware, async (req: any, res) => {
   }
 });
 
-// DELETE /:id - Deletar mensagem
+// Deletar mensagem (linha que faltava fechar)
+router.delete('/:id', authMiddleware, async (req: any, res) => {
+  try {
+    const message = await prisma.message.findFirst({
+      where: {
+        id: req.params.id,
+        integration: { userId: req.userId }
+      }
+    });
+
+    if (!message) {
+      return res.status(404).json({ error: 'Message not found' });
+    }
+
+    // Verificar permissão
+    const integration = await prisma.integration.findFirst({
+      where: {
+        id: message.integrationId,
+        userId: req.userId
+      }
+    });
+
+    if (!integration) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    // Atualizar timestamps baseado no status
+    const updateData: any = { status };
+
+    switch (status) {
+      case 'SENT':
+        updateData.sentAt = new Date();
+        break;
+      case 'DELIVERED':
+        updateData.deliveredAt = new Date();
+        await prisma.integration.update({
+          where: { id: message.integrationId },
+          data: { messagesDelivered: { increment: 1 } }
+        });
+        // Webhook de mensagem entregue
+        await webhookService.sendEvent(req.userId, 'message.delivered', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          deliveredAt: updateData.deliveredAt
+        });
+        break;
+      case 'READ':
+        updateData.readAt = new Date();
+        // Webhook de mensagem lida
+        await webhookService.sendEvent(req.userId, 'message.read', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          readAt: updateData.readAt
+        });
+        break;
+      case 'FAILED':
+        updateData.failedAt = new Date();
+        updateData.errorMessage = errorMessage;
+        await prisma.integration.update({
+          where: { id: message.integrationId },
+          data: { messagesFailed: { increment: 1 } }
+        });
+        // Webhook de mensagem falhada
+        await webhookService.sendEvent(req.userId, 'message.failed', {
+          messageId: message.id,
+          integrationId: message.integrationId,
+          errorMessage,
+          failedAt: updateData.failedAt
+        });
+        break;
+    }
+
+    const updated = await prisma.message.update({
+      where: { id: req.params.id },
+      data: updateData
+    });
+
+    res.json(updated);
+  } catch (error) {
+    console.error('Error updating message status:', error);
+    res.status(500).json({ error: 'Failed to update message status' });
+  }
+});
+
+// Deletar mensagem
 router.delete('/:id', authMiddleware, async (req: any, res) => {
   try {
     const message = await prisma.message.findUnique({
@@ -252,7 +320,7 @@ router.delete('/:id', authMiddleware, async (req: any, res) => {
       return res.status(404).json({ error: 'Message not found' });
     }
 
-    // Verificar se o usuário tem acesso a essa mensagem
+    // Verificar permissão
     const integration = await prisma.integration.findFirst({
       where: {
         id: message.integrationId,
@@ -275,7 +343,7 @@ router.delete('/:id', authMiddleware, async (req: any, res) => {
   }
 });
 
-// GET /threads/:contactId - Buscar threads/conversas
+// Buscar threads/conversas
 router.get('/threads/:contactId', authMiddleware, async (req: any, res) => {
   try {
     const { contactId } = req.params;

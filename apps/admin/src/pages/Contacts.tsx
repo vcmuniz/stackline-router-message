@@ -25,6 +25,11 @@ import {
   InputLabel,
   useTheme,
   alpha,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from '@mui/material';
 import {
   Search,
@@ -70,6 +75,14 @@ export default function Contacts() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [total, setTotal] = useState(0);
+  const [editDialog, setEditDialog] = useState(false);
+  const [editingContact, setEditingContact] = useState<Contact | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    phoneNumber: '',
+    email: '',
+    tags: ''
+  });
 
   useEffect(() => {
     loadContacts();
@@ -85,6 +98,32 @@ export default function Contacts() {
       console.error('Erro ao carregar contatos:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEdit = (contact: Contact) => {
+    setEditingContact(contact);
+    setFormData({
+      name: contact.name || '',
+      phoneNumber: contact.phoneNumber || '',
+      email: contact.email || '',
+      tags: contact.tags || ''
+    });
+    setEditDialog(true);
+  };
+
+  const handleSave = async () => {
+    if (!editingContact) return;
+
+    try {
+      await contactsApi.upsert({
+        integrationId: editingContact.integration.id,
+        ...formData
+      });
+      setEditDialog(false);
+      loadContacts();
+    } catch (error) {
+      console.error('Erro ao salvar contato:', error);
     }
   };
 
@@ -255,7 +294,7 @@ export default function Contacts() {
                           </IconButton>
                         </Tooltip>
                         <Tooltip title="Editar">
-                          <IconButton size="small">
+                          <IconButton size="small" onClick={() => handleEdit(contact)}>
                             <Edit fontSize="small" />
                           </IconButton>
                         </Tooltip>
@@ -286,6 +325,51 @@ export default function Contacts() {
             labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
           />
         </TableContainer>
+
+        {/* Dialog de Edição */}
+        <Dialog
+          open={editDialog}
+          onClose={() => setEditDialog(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Editar Contato</DialogTitle>
+          <DialogContent>
+            <Box display="flex" flexDirection="column" gap={2} pt={2}>
+              <TextField
+                fullWidth
+                label="Nome"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+              <TextField
+                fullWidth
+                label="Telefone"
+                value={formData.phoneNumber}
+                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                disabled
+                helperText="Telefone não pode ser alterado"
+              />
+              <TextField
+                fullWidth
+                label="Email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+              <TextField
+                fullWidth
+                label="Tags (separadas por vírgula)"
+                value={formData.tags}
+                onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                placeholder="cliente, vip, suporte"
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setEditDialog(false)}>Cancelar</Button>
+            <Button variant="contained" onClick={handleSave}>Salvar</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Layout>
   );

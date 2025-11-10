@@ -7,6 +7,8 @@ import Contacts from './pages/Contacts';
 import Messages from './pages/Messages';
 import ApiKeys from './pages/ApiKeys';
 import Webhooks from './pages/Webhooks';
+import ScheduledMessages from './pages/ScheduledMessages';
+import ApiDocs from './pages/ApiDocs';
 
 const isAuthed = () => !!localStorage.getItem('token');
 
@@ -21,6 +23,8 @@ export default function App() {
       <Route path='/messages/:filter' element={isAuthed() ? <Messages/> : <Navigate to='/login'/>} />
       <Route path='/api-keys' element={isAuthed() ? <ApiKeys/> : <Navigate to='/login'/>} />
       <Route path='/webhooks' element={isAuthed() ? <Webhooks/> : <Navigate to='/login'/>} />
+      <Route path='/agendadas' element={isAuthed() ? <ScheduledMessages/> : <Navigate to='/login'/>} />
+      <Route path='/documentacao' element={isAuthed() ? <ApiDocs/> : <Navigate to='/login'/>} />
       <Route path='*' element={<Navigate to={isAuthed() ? '/dashboard' : '/login'} />} />
     </Routes>
   );

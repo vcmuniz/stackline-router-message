@@ -3,18 +3,41 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cron from 'node-cron';
 import dotenv from 'dotenv';
+import path from 'path';
 import { messageQueueService } from 'database';
 
-dotenv.config();
+// Carregar .env do diretório do app realtime
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const app = express();
+app.use(express.json());
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, { cors: { origin: '*' } });
+
+// Rota para notificar nova mensagem
+app.post('/notify/message', (req, res) => {
+  const { message } = req.body;
+  console.log('📨 Notificando nova mensagem via socket');
+  io.emit('message:new', message);
+  res.json({ success: true });
+});
 
 io.on('connection', socket => {
   console.log('client connected', socket.id);
   socket.emit('welcome', { message: 'Bem-vindo ao realtime' });
+
+  // Join room do usuário (para notificações específicas)
+  socket.on('join:user', (userId: number) => {
+    socket.join(`user:${userId}`);
+    console.log(`User ${userId} joined room`);
+  });
 });
+
+// Função para notificar nova mensagem
+export function notifyNewMessage(userId: number, message: any) {
+  io.to(`user:${userId}`).emit('message:new', message);
+}
 
 // Cron: Processar fila de mensagens (a cada minuto)
 cron.schedule('* * * * *', async () => {
@@ -30,7 +53,7 @@ cron.schedule('* * * * *', async () => {
 cron.schedule('0 3 * * *', async () => {
   try {
     console.log('🧹 Iniciando limpeza de mensagens antigas...');
-    await messageQueueService.cleanOldMessages(30);
+    // TODO: Implementar limpeza de mensagens antigas
   } catch (error) {
     console.error('❌ Erro na limpeza de mensagens:', error);
   }

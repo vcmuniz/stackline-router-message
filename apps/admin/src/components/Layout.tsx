@@ -43,6 +43,8 @@ import {
   Cable,
   Key as KeyIcon,
   Webhook as WebhookIcon,
+  Schedule,
+  Code,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -98,18 +100,16 @@ export default function Layout({ children }: LayoutProps) {
       badge: null,
     },
     {
-      text: 'Mensagens',
+      text: 'Chat Geral',
       icon: <MessageIcon />,
-      path: null,
-      badge: '24',
-      expandable: true,
-      expanded: messagesOpen,
-      onToggle: () => setMessagesOpen(!messagesOpen),
-      subItems: [
-        { text: 'Caixa de Entrada', icon: <Inbox />, path: '/messages/inbox', badge: '12' },
-        { text: 'Enviadas', icon: <Send />, path: '/messages/sent' },
-        { text: 'Todas Mensagens', icon: <MessageIcon />, path: '/messages' },
-      ],
+      path: '/messages',
+      badge: null,
+    },
+    {
+      text: 'Mensagens Agendadas',
+      icon: <Schedule />,
+      path: '/agendadas',
+      badge: null,
     },
     {
       text: 'Contatos',
@@ -138,6 +138,11 @@ export default function Layout({ children }: LayoutProps) {
   ];
 
   const bottomItems = [
+    {
+      text: 'Documentação API',
+      icon: <Code />,
+      path: '/documentacao',
+    },
     {
       text: 'Configurações',
       icon: <SettingsIcon />,

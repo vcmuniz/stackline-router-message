@@ -11,25 +11,27 @@ Connected to database
 Default email templates created
 API listening on http://localhost:4000
 Queue dashboard: http://localhost:4000/admin/queues
-Evolution instance created for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
-Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
 📨 Webhook recebido: {
   integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
   integrationName: 'At',
   type: 'WHATSAPP_EVOLUTION',
-  event: 'connection.update',
-  timestamp: '2025-11-09T20:14:44.296Z'
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:46:29.491Z'
 }
 📦 Payload: {
-  "event": "connection.update",
+  "event": "messages.update",
   "instance": "at01",
   "data": {
-    "instance": "at01",
-    "state": "connecting",
-    "statusReason": 200
+    "keyId": "3EB05A0DCFDCBFD3742028",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2tzrt00pklg5016kg79se"
   },
   "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
-  "date_time": "2025-11-09T17:14:43.661Z",
+  "date_time": "2025-11-10T08:46:28.884Z",
+  "sender": "5521971817825@s.whatsapp.net",
   "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
   "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
@@ -37,22 +39,70 @@ Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
   integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
   integrationName: 'At',
   type: 'WHATSAPP_EVOLUTION',
-  event: 'connection.update',
-  timestamp: '2025-11-09T20:14:48.455Z'
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:47:51.810Z'
 }
 📦 Payload: {
-  "event": "connection.update",
+  "event": "messages.update",
   "instance": "at01",
   "data": {
-    "instance": "at01",
-    "wuid": "5521971817825@s.whatsapp.net",
-    "profileName": "Victor Muniz",
-    "profilePictureUrl": null,
-    "state": "open",
-    "statusReason": 200
+    "keyId": "3EB04CD172595B2CA38A46",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "READ",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhseqgt400oelg50l8f1ljou"
   },
   "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
-  "date_time": "2025-11-09T17:14:47.921Z",
+  "date_time": "2025-11-10T08:47:51.417Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:47:51.872Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB09A87DD29D655714D48",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "READ",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhse93n500oalg5056bb3b1k"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:47:51.394Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:47:51.896Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB05A0DCFDCBFD3742028",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "READ",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2tzrt00pklg5016kg79se"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:47:51.449Z",
   "sender": "5521971817825@s.whatsapp.net",
   "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
   "apikey": "F95CD911-8103-4389-847C-672557731BAE"
@@ -62,21 +112,21 @@ Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
   integrationName: 'At',
   type: 'WHATSAPP_EVOLUTION',
   event: 'messages.upsert',
-  timestamp: '2025-11-09T20:16:44.573Z'
+  timestamp: '2025-11-10T11:47:58.717Z'
 }
 📦 Payload: {
   "event": "messages.upsert",
   "instance": "at01",
   "data": {
     "key": {
-      "remoteJid": "5521991856227@s.whatsapp.net",
-      "remoteJidAlt": "247918464364600@lid",
+      "remoteJid": "45780056465530@lid",
+      "remoteJidAlt": "5524974024211@s.whatsapp.net",
       "fromMe": false,
-      "id": "AC9AEE0550761A6000AF370C104DA823",
+      "id": "3ACA0945874C4532AC08",
       "participant": "",
-      "addressingMode": "pn"
+      "addressingMode": "lid"
     },
-    "pushName": "Victor Muniz",
+    "pushName": "Rafael Menezes Andrade",
     "status": "DELIVERY_ACK",
     "message": {
       "conversation": "Oi",
@@ -85,19 +135,19 @@ Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
           "senderKeyIndexes": [],
           "recipientKeyIndexes": [],
           "senderKeyHash": {
-            "0": 98,
-            "1": 57,
-            "2": 54,
-            "3": 91,
-            "4": 29,
-            "5": 210,
-            "6": 95,
-            "7": 208,
-            "8": 75,
-            "9": 10
+            "0": 19,
+            "1": 245,
+            "2": 111,
+            "3": 49,
+            "4": 188,
+            "5": 112,
+            "6": 49,
+            "7": 243,
+            "8": 211,
+            "9": 36
           },
           "senderTimestamp": {
-            "low": 1762705218,
+            "low": 1761779901,
             "high": 0,
             "unsigned": true
           },
@@ -121,105 +171,189 @@ Webhook configured for 2d1c6342-39fc-42d1-a69e-1366e88eb77f
         },
         "deviceListMetadataVersion": 2,
         "messageSecret": {
-          "0": 12,
-          "1": 77,
-          "2": 13,
-          "3": 25,
-          "4": 16,
-          "5": 151,
-          "6": 34,
-          "7": 90,
-          "8": 67,
-          "9": 147,
-          "10": 202,
-          "11": 167,
-          "12": 4,
-          "13": 249,
-          "14": 11,
-          "15": 224,
-          "16": 146,
-          "17": 186,
-          "18": 205,
-          "19": 174,
-          "20": 134,
-          "21": 59,
-          "22": 17,
-          "23": 32,
-          "24": 189,
-          "25": 232,
-          "26": 103,
-          "27": 149,
-          "28": 13,
-          "29": 22,
-          "30": 38,
-          "31": 150
+          "0": 150,
+          "1": 249,
+          "2": 56,
+          "3": 98,
+          "4": 165,
+          "5": 178,
+          "6": 223,
+          "7": 38,
+          "8": 84,
+          "9": 93,
+          "10": 114,
+          "11": 204,
+          "12": 128,
+          "13": 43,
+          "14": 195,
+          "15": 22,
+          "16": 131,
+          "17": 36,
+          "18": 100,
+          "19": 1,
+          "20": 208,
+          "21": 188,
+          "22": 60,
+          "23": 20,
+          "24": 69,
+          "25": 167,
+          "26": 71,
+          "27": 107,
+          "28": 161,
+          "29": 178,
+          "30": 39,
+          "31": 209
         }
       }
     },
     "messageType": "conversation",
-    "messageTimestamp": 1762719403,
+    "messageTimestamp": 1762775277,
     "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
-    "source": "android"
+    "source": "ios"
   },
   "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
-  "date_time": "2025-11-09T17:16:43.814Z",
+  "date_time": "2025-11-10T08:47:57.966Z",
   "sender": "5521971817825@s.whatsapp.net",
   "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
   "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-Error processing Evolution webhook: TypeError: Cannot read properties of undefined (reading 'fromMe')
-    at processEvolutionWebhook (/app/apps/api/src/routes/webhook.ts:237:16)
-    at /app/apps/api/src/routes/webhook.ts:81:29
-    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
-    at next (/app/node_modules/express/lib/router/route.js:149:13)
-    at validateWebhook (/app/apps/api/src/routes/webhook.ts:34:5)
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-Connected to database
-Default email templates created
-API listening on http://localhost:4000
-Queue dashboard: http://localhost:4000/admin/queues
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:47:59.800Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB05A0DCFDCBFD3742028",
+    "remoteJid": "5524974024211@s.whatsapp.net",
+    "fromMe": true,
+    "status": "SERVER_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2tzrt00pklg5016kg79se"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:47:59.344Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:48:06.235Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB013A79A150C1E073EFF",
+    "remoteJid": "5524974024211@s.whatsapp.net",
+    "fromMe": true,
+    "status": "SERVER_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2w37p00q2lg50rjwsdd6u"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:48:05.702Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:48:06.467Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB013A79A150C1E073EFF",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2w37p00q2lg50rjwsdd6u"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:48:05.899Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T11:48:06.478Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB013A79A150C1E073EFF",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "READ",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2w37p00q2lg50rjwsdd6u"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:48:05.910Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
 📨 Webhook recebido: {
   integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
   integrationName: 'At',
   type: 'WHATSAPP_EVOLUTION',
   event: 'messages.upsert',
-  timestamp: '2025-11-09T20:18:27.107Z'
+  timestamp: '2025-11-10T11:48:33.732Z'
 }
 📦 Payload: {
   "event": "messages.upsert",
   "instance": "at01",
   "data": {
     "key": {
-      "remoteJid": "5521991856227@s.whatsapp.net",
-      "remoteJidAlt": "247918464364600@lid",
+      "remoteJid": "45780056465530@lid",
+      "remoteJidAlt": "5524974024211@s.whatsapp.net",
       "fromMe": false,
-      "id": "ACAA5D477F6EAB20403573CE42A1024E",
+      "id": "3A40A8CAC164FAECA100",
       "participant": "",
-      "addressingMode": "pn"
+      "addressingMode": "lid"
     },
-    "pushName": "Victor Muniz",
+    "pushName": "Rafael Menezes Andrade",
     "status": "DELIVERY_ACK",
     "message": {
-      "conversation": "Oi 2",
+      "conversation": "🤣",
       "messageContextInfo": {
         "deviceListMetadata": {
           "senderKeyIndexes": [],
           "recipientKeyIndexes": [],
           "senderKeyHash": {
-            "0": 98,
-            "1": 57,
-            "2": 54,
-            "3": 91,
-            "4": 29,
-            "5": 210,
-            "6": 95,
-            "7": 208,
-            "8": 75,
-            "9": 10
+            "0": 19,
+            "1": 245,
+            "2": 111,
+            "3": 49,
+            "4": 188,
+            "5": 112,
+            "6": 49,
+            "7": 243,
+            "8": 211,
+            "9": 36
           },
           "senderTimestamp": {
-            "low": 1762705218,
+            "low": 1761779901,
             "high": 0,
             "unsigned": true
           },
@@ -243,408 +377,1030 @@ Queue dashboard: http://localhost:4000/admin/queues
         },
         "deviceListMetadataVersion": 2,
         "messageSecret": {
-          "0": 121,
-          "1": 156,
-          "2": 191,
-          "3": 127,
-          "4": 223,
-          "5": 106,
-          "6": 42,
-          "7": 141,
-          "8": 145,
-          "9": 116,
-          "10": 161,
-          "11": 198,
-          "12": 169,
-          "13": 158,
-          "14": 72,
-          "15": 27,
-          "16": 87,
-          "17": 81,
-          "18": 179,
-          "19": 235,
-          "20": 207,
-          "21": 70,
-          "22": 184,
-          "23": 26,
-          "24": 175,
-          "25": 207,
-          "26": 36,
-          "27": 58,
-          "28": 184,
-          "29": 123,
-          "30": 35,
-          "31": 155
+          "0": 5,
+          "1": 67,
+          "2": 101,
+          "3": 185,
+          "4": 125,
+          "5": 83,
+          "6": 170,
+          "7": 42,
+          "8": 92,
+          "9": 226,
+          "10": 231,
+          "11": 187,
+          "12": 54,
+          "13": 212,
+          "14": 188,
+          "15": 131,
+          "16": 36,
+          "17": 50,
+          "18": 52,
+          "19": 145,
+          "20": 22,
+          "21": 94,
+          "22": 68,
+          "23": 133,
+          "24": 196,
+          "25": 239,
+          "26": 19,
+          "27": 134,
+          "28": 100,
+          "29": 70,
+          "30": 221,
+          "31": 79
         }
       }
     },
     "messageType": "conversation",
-    "messageTimestamp": 1762719506,
+    "messageTimestamp": 1762775313,
     "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
-    "source": "android"
+    "source": "ios"
   },
   "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
-  "date_time": "2025-11-09T17:18:26.495Z",
+  "date_time": "2025-11-10T08:48:33.562Z",
   "sender": "5521971817825@s.whatsapp.net",
   "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
   "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-Connected to database
-Default email templates created
-API listening on http://localhost:4000
-Queue dashboard: http://localhost:4000/admin/queues
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-Connected to database
-Default email templates created
-API listening on http://localhost:4000
-Queue dashboard: http://localhost:4000/admin/queues
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-Connected to database
-Default email templates created
-API listening on http://localhost:4000
-Queue dashboard: http://localhost:4000/admin/queues
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-Connected to database
-Default email templates created
-API listening on http://localhost:4000
-Queue dashboard: http://localhost:4000/admin/queues
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-src/routes/messages.ts(222,29): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.upsert',
+  timestamp: '2025-11-10T11:48:39.893Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-src/routes/messages.ts(222,29): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2339 ]
+📦 Payload: {
+  "event": "messages.upsert",
+  "instance": "at01",
+  "data": {
+    "key": {
+      "remoteJid": "45780056465530@lid",
+      "remoteJidAlt": "5524974024211@s.whatsapp.net",
+      "fromMe": false,
+      "id": "3AE8568DE1C40EF76367",
+      "participant": "",
+      "addressingMode": "lid"
+    },
+    "pushName": "Rafael Menezes Andrade",
+    "status": "DELIVERY_ACK",
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/v/t62.15575-24/543370595_687354557780288_4171179846254539951_n.enc?ccb=11-4&oh=01_Q5Aa3AFv52DHR0xlYIYgmhf1dEZ44k1IhC_ybYl296oXGkWF7Q&oe=69392C07&_nc_sid=5e03e0&mms3=true",
+        "fileSha256": {
+          "0": 198,
+          "1": 230,
+          "2": 176,
+          "3": 72,
+          "4": 177,
+          "5": 61,
+          "6": 226,
+          "7": 183,
+          "8": 14,
+          "9": 21,
+          "10": 6,
+          "11": 209,
+          "12": 78,
+          "13": 161,
+          "14": 151,
+          "15": 213,
+          "16": 9,
+          "17": 166,
+          "18": 224,
+          "19": 102,
+          "20": 131,
+          "21": 11,
+          "22": 140,
+          "23": 68,
+          "24": 251,
+          "25": 4,
+          "26": 10,
+          "27": 194,
+          "28": 145,
+          "29": 104,
+          "30": 153,
+          "31": 181
+        },
+        "fileEncSha256": {
+          "0": 4,
+          "1": 96,
+          "2": 65,
+          "3": 42,
+          "4": 102,
+          "5": 227,
+          "6": 140,
+          "7": 242,
+          "8": 222,
+          "9": 96,
+          "10": 64,
+          "11": 82,
+          "12": 220,
+          "13": 224,
+          "14": 182,
+          "15": 136,
+          "16": 160,
+          "17": 4,
+          "18": 101,
+          "19": 12,
+          "20": 116,
+          "21": 209,
+          "22": 129,
+          "23": 12,
+          "24": 188,
+          "25": 212,
+          "26": 237,
+          "27": 144,
+          "28": 126,
+          "29": 8,
+          "30": 31,
+          "31": 122
+        },
+        "mediaKey": {
+          "0": 41,
+          "1": 44,
+          "2": 23,
+          "3": 186,
+          "4": 92,
+          "5": 254,
+          "6": 246,
+          "7": 18,
+          "8": 184,
+          "9": 221,
+          "10": 101,
+          "11": 21,
+          "12": 102,
+          "13": 5,
+          "14": 131,
+          "15": 131,
+          "16": 77,
+          "17": 162,
+          "18": 12,
+          "19": 5,
+          "20": 253,
+          "21": 213,
+          "22": 38,
+          "23": 96,
+          "24": 213,
+          "25": 241,
+          "26": 175,
+          "27": 113,
+          "28": 46,
+          "29": 197,
+          "30": 7,
+          "31": 243
+        },
+        "mimetype": "image/webp",
+        "directPath": "/v/t62.15575-24/543370595_687354557780288_4171179846254539951_n.enc?ccb=11-4&oh=01_Q5Aa3AFv52DHR0xlYIYgmhf1dEZ44k1IhC_ybYl296oXGkWF7Q&oe=69392C07&_nc_sid=5e03e0",
+        "fileLength": {
+          "low": 377844,
+          "high": 0,
+          "unsigned": true
+        },
+        "mediaKeyTimestamp": {
+          "low": 1762775318,
+          "high": 0,
+          "unsigned": false
+        },
+        "firstFrameLength": 377310,
+        "firstFrameSidecar": {
+          "0": 209,
+          "1": 178,
+          "2": 108,
+          "3": 87,
+          "4": 40,
+          "5": 10,
+          "6": 2,
+          "7": 63,
+          "8": 111,
+          "9": 56
+        },
+        "isAnimated": true,
+        "stickerSentTs": {
+          "low": 1838727531,
+          "high": 410,
+          "unsigned": false
+        },
+        "isAvatar": false,
+        "isAiSticker": false,
+        "isLottie": false,
+        "accessibilityLabel": ""
+      },
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyIndexes": [],
+          "recipientKeyIndexes": [],
+          "senderKeyHash": {
+            "0": 19,
+            "1": 245,
+            "2": 111,
+            "3": 49,
+            "4": 188,
+            "5": 112,
+            "6": 49,
+            "7": 243,
+            "8": 211,
+            "9": 36
+          },
+          "senderTimestamp": {
+            "low": 1761779901,
+            "high": 0,
+            "unsigned": true
+          },
+          "recipientKeyHash": {
+            "0": 206,
+            "1": 114,
+            "2": 38,
+            "3": 173,
+            "4": 132,
+            "5": 130,
+            "6": 85,
+            "7": 89,
+            "8": 252,
+            "9": 247
+          },
+          "recipientTimestamp": {
+            "low": 1762719279,
+            "high": 0,
+            "unsigned": true
+          }
+        },
+        "deviceListMetadataVersion": 2,
+        "messageSecret": {
+          "0": 156,
+          "1": 104,
+          "2": 252,
+          "3": 141,
+          "4": 242,
+          "5": 194,
+          "6": 57,
+          "7": 234,
+          "8": 111,
+          "9": 193,
+          "10": 148,
+          "11": 110,
+          "12": 120,
+          "13": 106,
+          "14": 214,
+          "15": 154,
+          "16": 5,
+          "17": 59,
+          "18": 159,
+          "19": 125,
+          "20": 43,
+          "21": 230,
+          "22": 38,
+          "23": 192,
+          "24": 74,
+          "25": 99,
+          "26": 160,
+          "27": 226,
+          "28": 231,
+          "29": 34,
+          "30": 30,
+          "31": 163
+        }
+      }
+    },
+    "contextInfo": null,
+    "messageType": "stickerMessage",
+    "messageTimestamp": 1762775320,
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "source": "ios"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:48:40.360Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.upsert',
+  timestamp: '2025-11-10T11:48:43.828Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.upsert",
+  "instance": "at01",
+  "data": {
+    "key": {
+      "remoteJid": "45780056465530@lid",
+      "remoteJidAlt": "5524974024211@s.whatsapp.net",
+      "fromMe": false,
+      "id": "3A0310DEEFA9F7311955",
+      "participant": "",
+      "addressingMode": "lid"
+    },
+    "pushName": "Rafael Menezes Andrade",
+    "status": "DELIVERY_ACK",
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/v/t62.15575-24/578959433_1863442081230125_3042363719578684664_n.enc?ccb=11-4&oh=01_Q5Aa3AEjouYpSK4q3arvEYVvtWg-TZy-YG7W57b-tcXwbunN-g&oe=6939437A&_nc_sid=5e03e0&mms3=true",
+        "fileSha256": {
+          "0": 34,
+          "1": 25,
+          "2": 131,
+          "3": 61,
+          "4": 234,
+          "5": 69,
+          "6": 42,
+          "7": 138,
+          "8": 172,
+          "9": 76,
+          "10": 162,
+          "11": 161,
+          "12": 205,
+          "13": 213,
+          "14": 182,
+          "15": 106,
+          "16": 26,
+          "17": 135,
+          "18": 22,
+          "19": 26,
+          "20": 27,
+          "21": 186,
+          "22": 229,
+          "23": 103,
+          "24": 72,
+          "25": 113,
+          "26": 219,
+          "27": 26,
+          "28": 89,
+          "29": 234,
+          "30": 83,
+          "31": 55
+        },
+        "fileEncSha256": {
+          "0": 233,
+          "1": 172,
+          "2": 18,
+          "3": 101,
+          "4": 236,
+          "5": 211,
+          "6": 161,
+          "7": 201,
+          "8": 162,
+          "9": 193,
+          "10": 56,
+          "11": 25,
+          "12": 183,
+          "13": 217,
+          "14": 254,
+          "15": 222,
+          "16": 68,
+          "17": 11,
+          "18": 218,
+          "19": 101,
+          "20": 240,
+          "21": 95,
+          "22": 181,
+          "23": 237,
+          "24": 17,
+          "25": 88,
+          "26": 73,
+          "27": 250,
+          "28": 13,
+          "29": 15,
+          "30": 51,
+          "31": 63
+        },
+        "mediaKey": {
+          "0": 99,
+          "1": 76,
+          "2": 232,
+          "3": 236,
+          "4": 109,
+          "5": 157,
+          "6": 65,
+          "7": 218,
+          "8": 97,
+          "9": 69,
+          "10": 206,
+          "11": 4,
+          "12": 85,
+          "13": 12,
+          "14": 76,
+          "15": 237,
+          "16": 45,
+          "17": 223,
+          "18": 113,
+          "19": 158,
+          "20": 46,
+          "21": 69,
+          "22": 148,
+          "23": 209,
+          "24": 69,
+          "25": 12,
+          "26": 74,
+          "27": 187,
+          "28": 178,
+          "29": 68,
+          "30": 246,
+          "31": 87
+        },
+        "mimetype": "image/webp",
+        "directPath": "/v/t62.15575-24/578959433_1863442081230125_3042363719578684664_n.enc?ccb=11-4&oh=01_Q5Aa3AEjouYpSK4q3arvEYVvtWg-TZy-YG7W57b-tcXwbunN-g&oe=6939437A&_nc_sid=5e03e0",
+        "fileLength": {
+          "low": 31318,
+          "high": 0,
+          "unsigned": true
+        },
+        "mediaKeyTimestamp": {
+          "low": 1762775323,
+          "high": 0,
+          "unsigned": false
+        },
+        "isAnimated": false,
+        "stickerSentTs": {
+          "low": 1838732346,
+          "high": 410,
+          "unsigned": false
+        },
+        "isAvatar": false,
+        "isAiSticker": false,
+        "isLottie": false,
+        "accessibilityLabel": ""
+      },
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyIndexes": [],
+          "recipientKeyIndexes": [],
+          "senderKeyHash": {
+            "0": 19,
+            "1": 245,
+            "2": 111,
+            "3": 49,
+            "4": 188,
+            "5": 112,
+            "6": 49,
+            "7": 243,
+            "8": 211,
+            "9": 36
+          },
+          "senderTimestamp": {
+            "low": 1761779901,
+            "high": 0,
+            "unsigned": true
+          },
+          "recipientKeyHash": {
+            "0": 206,
+            "1": 114,
+            "2": 38,
+            "3": 173,
+            "4": 132,
+            "5": 130,
+            "6": 85,
+            "7": 89,
+            "8": 252,
+            "9": 247
+          },
+          "recipientTimestamp": {
+            "low": 1762719279,
+            "high": 0,
+            "unsigned": true
+          }
+        },
+        "deviceListMetadataVersion": 2,
+        "messageSecret": {
+          "0": 46,
+          "1": 108,
+          "2": 97,
+          "3": 158,
+          "4": 68,
+          "5": 50,
+          "6": 23,
+          "7": 89,
+          "8": 214,
+          "9": 151,
+          "10": 214,
+          "11": 169,
+          "12": 42,
+          "13": 157,
+          "14": 209,
+          "15": 41,
+          "16": 190,
+          "17": 24,
+          "18": 55,
+          "19": 125,
+          "20": 145,
+          "21": 141,
+          "22": 211,
+          "23": 203,
+          "24": 52,
+          "25": 160,
+          "26": 157,
+          "27": 219,
+          "28": 163,
+          "29": 124,
+          "30": 151,
+          "31": 27
+        }
+      }
+    },
+    "contextInfo": null,
+    "messageType": "stickerMessage",
+    "messageTimestamp": 1762775324,
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "source": "ios"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:48:45.006Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.upsert',
+  timestamp: '2025-11-10T11:50:33.604Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.upsert",
+  "instance": "at01",
+  "data": {
+    "key": {
+      "remoteJid": "45780056465530@lid",
+      "remoteJidAlt": "5524974024211@s.whatsapp.net",
+      "fromMe": false,
+      "id": "3A46C74FE6208D26A04C",
+      "participant": "",
+      "addressingMode": "lid"
+    },
+    "pushName": "Rafael Menezes Andrade",
+    "status": "DELIVERY_ACK",
+    "message": {
+      "stickerMessage": {
+        "url": "https://mmg.whatsapp.net/v/t62.15575-24/543275717_1763751987665931_4694622954639387143_n.enc?ccb=11-4&oh=01_Q5Aa3AF3Z7uq0kLVkcMU8U-vWydmTsI71VkI3PlpwQhsRudoog&oe=69394A91&_nc_sid=5e03e0&mms3=true",
+        "fileSha256": {
+          "0": 82,
+          "1": 222,
+          "2": 221,
+          "3": 176,
+          "4": 160,
+          "5": 165,
+          "6": 84,
+          "7": 6,
+          "8": 10,
+          "9": 221,
+          "10": 56,
+          "11": 204,
+          "12": 10,
+          "13": 91,
+          "14": 128,
+          "15": 8,
+          "16": 89,
+          "17": 137,
+          "18": 116,
+          "19": 138,
+          "20": 143,
+          "21": 191,
+          "22": 103,
+          "23": 194,
+          "24": 241,
+          "25": 235,
+          "26": 137,
+          "27": 255,
+          "28": 129,
+          "29": 227,
+          "30": 252,
+          "31": 229
+        },
+        "fileEncSha256": {
+          "0": 239,
+          "1": 214,
+          "2": 103,
+          "3": 190,
+          "4": 14,
+          "5": 193,
+          "6": 103,
+          "7": 70,
+          "8": 100,
+          "9": 51,
+          "10": 235,
+          "11": 170,
+          "12": 237,
+          "13": 79,
+          "14": 181,
+          "15": 151,
+          "16": 117,
+          "17": 44,
+          "18": 65,
+          "19": 169,
+          "20": 81,
+          "21": 199,
+          "22": 237,
+          "23": 160,
+          "24": 112,
+          "25": 238,
+          "26": 159,
+          "27": 34,
+          "28": 68,
+          "29": 219,
+          "30": 63,
+          "31": 167
+        },
+        "mediaKey": {
+          "0": 212,
+          "1": 57,
+          "2": 55,
+          "3": 15,
+          "4": 137,
+          "5": 232,
+          "6": 178,
+          "7": 115,
+          "8": 218,
+          "9": 14,
+          "10": 224,
+          "11": 86,
+          "12": 98,
+          "13": 165,
+          "14": 99,
+          "15": 49,
+          "16": 117,
+          "17": 47,
+          "18": 37,
+          "19": 136,
+          "20": 8,
+          "21": 63,
+          "22": 134,
+          "23": 238,
+          "24": 62,
+          "25": 247,
+          "26": 165,
+          "27": 47,
+          "28": 211,
+          "29": 19,
+          "30": 148,
+          "31": 75
+        },
+        "mimetype": "image/webp",
+        "height": 512,
+        "width": 512,
+        "directPath": "/v/t62.15575-24/543275717_1763751987665931_4694622954639387143_n.enc?ccb=11-4&oh=01_Q5Aa3AF3Z7uq0kLVkcMU8U-vWydmTsI71VkI3PlpwQhsRudoog&oe=69394A91&_nc_sid=5e03e0",
+        "fileLength": {
+          "low": 141938,
+          "high": 0,
+          "unsigned": true
+        },
+        "mediaKeyTimestamp": {
+          "low": 1762775430,
+          "high": 0,
+          "unsigned": false
+        },
+        "isAnimated": false,
+        "stickerSentTs": {
+          "low": 1838838727,
+          "high": 410,
+          "unsigned": false
+        },
+        "isAvatar": false,
+        "isAiSticker": false,
+        "isLottie": false,
+        "accessibilityLabel": ""
+      },
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyIndexes": [],
+          "recipientKeyIndexes": [],
+          "senderKeyHash": {
+            "0": 19,
+            "1": 245,
+            "2": 111,
+            "3": 49,
+            "4": 188,
+            "5": 112,
+            "6": 49,
+            "7": 243,
+            "8": 211,
+            "9": 36
+          },
+          "senderTimestamp": {
+            "low": 1761779901,
+            "high": 0,
+            "unsigned": true
+          },
+          "recipientKeyHash": {
+            "0": 206,
+            "1": 114,
+            "2": 38,
+            "3": 173,
+            "4": 132,
+            "5": 130,
+            "6": 85,
+            "7": 89,
+            "8": 252,
+            "9": 247
+          },
+          "recipientTimestamp": {
+            "low": 1762719279,
+            "high": 0,
+            "unsigned": true
+          }
+        },
+        "deviceListMetadataVersion": 2,
+        "messageSecret": {
+          "0": 175,
+          "1": 159,
+          "2": 76,
+          "3": 134,
+          "4": 96,
+          "5": 42,
+          "6": 186,
+          "7": 215,
+          "8": 110,
+          "9": 47,
+          "10": 154,
+          "11": 82,
+          "12": 226,
+          "13": 115,
+          "14": 2,
+          "15": 48,
+          "16": 136,
+          "17": 11,
+          "18": 74,
+          "19": 148,
+          "20": 94,
+          "21": 195,
+          "22": 214,
+          "23": 86,
+          "24": 206,
+          "25": 181,
+          "26": 183,
+          "27": 189,
+          "28": 86,
+          "29": 246,
+          "30": 109,
+          "31": 63
+        }
+      }
+    },
+    "contextInfo": null,
+    "messageType": "stickerMessage",
+    "messageTimestamp": 1762775434,
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "source": "ios"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T08:50:34.465Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:00:06.453Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0397D81597A5EE335D4",
+    "remoteJid": "5524974024211@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht3bige00qylg50c06v8i94"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:00:05.423Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:00:06.881Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-(node:154) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [Bus]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
-(Use `node --trace-warnings ...` to show where the warning was created)
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0397D81597A5EE335D4",
+    "remoteJid": "5524974024211@s.whatsapp.net",
+    "fromMe": true,
+    "status": "SERVER_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht3bige00qylg50c06v8i94"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:00:05.936Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:00:16.390Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0397D81597A5EE335D4",
+    "remoteJid": "45780056465530:55@lid",
+    "fromMe": true,
+    "status": "READ",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht3bige00qylg50c06v8i94"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:00:15.835Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:18.461Z'
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Object.require.extensions.<computed> [as .ts] (/app/node_modules/ts-node/src/index.ts:1621:12)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Function.Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Module.require (node:internal/modules/cjs/loader:1289:19) {
-  diagnosticCodes: [ 2345, 2339 ]
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0959D1345F82F5FEEAA",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhsdxyem00o4lg50nr6053x5"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:17.812Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
 }
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `ts-node src/index.ts`[39m
-/app/node_modules/ts-node/src/index.ts:859
-    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
-           ^
-TSError: ⨯ Unable to compile TypeScript:
-../../packages/database/src/services/messageQueueService.ts(184,13): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-../../packages/database/src/services/messageQueueService.ts(190,38): error TS2339: Property 'sendEmail' does not exist on type 'SMTPManager'.
-
-    at createTSError (/app/node_modules/ts-node/src/index.ts:859:12)
-    at reportTSError (/app/node_modules/ts-node/src/index.ts:863:19)
-    at getOutput (/app/node_modules/ts-node/src/index.ts:1077:36)
-    at Object.compile (/app/node_modules/ts-node/src/index.ts:1433:41)
-    at Module.m._compile (/app/node_modules/ts-node/src/index.ts:1617:30)
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:18.499Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0E3AD4B450BDAA6BE81",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhsd2er800molg507aujnldv"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:17.796Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:18.509Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0B955AD99373A4CB140",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhscolj000kqlg500m6pmie0"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:17.741Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:18.522Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB09A87DD29D655714D48",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhse93n500oalg5056bb3b1k"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:17.831Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:18.544Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB04CD172595B2CA38A46",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmhseqgt400oelg50l8f1ljou"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:17.847Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:19.350Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB05A0DCFDCBFD3742028",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2tzrt00pklg5016kg79se"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:19.231Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:19.366Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB013A79A150C1E073EFF",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht2w37p00q2lg50rjwsdd6u"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T09:43:19.247Z",
+  "sender": "5521971817825@s.whatsapp.net",
+  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
+  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
+}
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T12:43:19.397Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB0397D81597A5EE335D4",
+    "remoteJid": "5524974024211:56@s.whatsapp.net",
+    "fromMe": true,
+    "status": "DELIVERY_ACK",

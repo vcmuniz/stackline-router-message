@@ -130,8 +130,19 @@ router.post('/:webhookId', logWebhook, validateWebhook, async (req: any, res) =>
           metadata: messageData.metadata,
           threadId: messageData.threadId,
           createdAt: messageData.timestamp || new Date()
+        },
+        include: {
+          fromContact: true,
+          toContact: true
         }
       });
+
+      // Notificar realtime via HTTP
+      try {
+        await require('axios').default.post('http://localhost:4500/notify/message', { message });
+      } catch (err) {
+        console.error('Erro ao notificar realtime:', err);
+      }
 
       // Atualizar contador de mensagens recebidas
       await prisma.integration.update({
@@ -236,9 +247,15 @@ async function processEvolutionWebhook(payload: any, integration: any) {
 
       // Ignorar mensagens enviadas por nós mesmos
       if (!key.fromMe) {
+        // Se remoteJid tem @lid, usar remoteJidAlt
+        let phoneNumber = key.remoteJid;
+        if (key.remoteJid?.includes('@lid') && key.remoteJidAlt) {
+          phoneNumber = key.remoteJidAlt;
+        }
+
         return {
           externalId: key.id,
-          fromNumber: key.remoteJid?.replace('@s.whatsapp.net', ''),
+          fromNumber: phoneNumber?.replace('@s.whatsapp.net', '').replace('@lid', ''),
           fromName: data.pushName || null,
           content: message?.conversation ||
                   message?.extendedTextMessage?.text ||

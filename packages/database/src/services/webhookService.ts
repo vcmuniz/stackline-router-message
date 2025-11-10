@@ -79,8 +79,8 @@ export class WebhookService {
           endpointId,
           event,
           url,
-          payload,
-          response: response.data,
+          payload: payload as any,
+          response: response.data as any,
           statusCode: response.status,
           success: true
         }
@@ -103,9 +103,9 @@ export class WebhookService {
           endpointId,
           event,
           url,
-          payload,
-          response: error.response?.data,
-          statusCode: error.response?.status,
+          payload: payload as any,
+          response: error.response?.data as any,
+          statusCode: error.response?.status || null,
           success: false,
           errorMessage: error.message
         }

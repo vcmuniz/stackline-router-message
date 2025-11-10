@@ -49,7 +49,6 @@ model User {
   updatedAt DateTime @updatedAt
 
   integrations     Integration[]
-  messageQueues    MessageQueue[]
   apiKeys          ApiKey[]
   webhookEndpoints WebhookEndpoint[]
 }
@@ -81,7 +80,6 @@ model Integration {
   user        User              @relation(fields: [userId], references: [id])
   messages    Message[]
   contacts    Contact[]
-  messageQueues MessageQueue[]
 
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
@@ -147,6 +145,14 @@ model Message {
 
   // Erro
   errorMessage  String?          @db.Text
+
+  // Controle de Fila
+  priority      Int              @default(5)
+  maxRetries    Int              @default(3)
+  currentRetry  Int              @default(0)
+  minInterval   Int              @default(300)
+  scheduledAt   DateTime?
+  lastAttemptAt DateTime?
 
   // Relacionamentos
   integrationId String
@@ -215,99 +221,6 @@ model Setting {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-// Sistema de Filas
-enum QueueStatus {
-  PENDING
-  SCHEDULED
-  PROCESSING
-  SENT
-  FAILED
-  CANCELLED
-}
-
-enum AttemptStatus {
-  PENDING
-  SENT
-  FAILED
-}
-
-model MessageQueue {
-  id            String      @id @default(uuid())
-
-  // Relacionamentos
-  integrationId String
-  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
-
-  userId        Int
-  user          User        @relation(fields: [userId], references: [id])
-
-  // Destino
-  toPhone       String?
-  toEmail       String?
-  toTelegramId  String?
-  toName        String?
-
-  // Conteúdo
-  content       String      @db.Text
-  mediaUrl      String?     @db.Text
-  mediaType     String?
-
-  // Controle da fila
-  status        QueueStatus @default(PENDING)
-  priority      Int         @default(5)
-  maxRetries    Int         @default(3)
-  currentRetry  Int         @default(0)
-  minInterval   Int         @default(300) // segundos
-
-  // Agendamento
-  scheduledAt   DateTime?
-
-  // Timestamps
-  lastAttemptAt DateTime?
-  sentAt        DateTime?
-  failedAt      DateTime?
-  cancelledAt   DateTime?
-
-  // Metadata
-  metadata      Json?
-  errorMessage  String?     @db.Text
-
-  // Tentativas
-  attempts      QueueAttempt[]
-
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-
-  @@index([status, scheduledAt])
-  @@index([integrationId])
-  @@index([userId])
-  @@index([toPhone])
-}
-
-model QueueAttempt {
-  id              String        @id @default(uuid())
-
-  queueId         String
-  queue           MessageQueue  @relation(fields: [queueId], references: [id], onDelete: Cascade)
-
-  attemptNumber   Int
-  status          AttemptStatus @default(PENDING)
-
-  // Resposta
-  responseCode    Int?
-  responseMessage String?       @db.Text
-  failureReason   String?       @db.Text
-  externalId      String?
-  externalData    Json?
-
-  // Timestamps
-  startedAt       DateTime      @default(now())
-  completedAt     DateTime?
-
-  @@index([queueId])
-  @@index([status])
 }
 
 // Sistema de API Keys

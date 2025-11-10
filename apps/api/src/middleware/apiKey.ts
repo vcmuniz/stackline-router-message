@@ -33,12 +33,13 @@ export const apiKeyMiddleware = async (req: ApiKeyRequest, res: Response, next: 
       return res.status(403).json({ error: 'API Key disabled' });
     }
 
-    if (key.expiresAt && key.expiresAt < now) {
-      return res.status(403).json({ error: 'API Key expired' });
-    }
-
     // Rate limiting
     const now = Date.now();
+    const nowDate = new Date();
+
+    if (key.expiresAt && key.expiresAt < nowDate) {
+      return res.status(403).json({ error: 'API Key expired' });
+    }
     const windowMs = 60 * 1000; // 1 minuto
     const limit = key.rateLimit;
 

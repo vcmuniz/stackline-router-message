@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
@@ -21,6 +21,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Tooltip,
+  Chip,
 } from '@mui/material';
 import {
   Search,
@@ -41,6 +43,7 @@ import {
 import Layout from '../components/Layout';
 import { contactsApi, messagesApi, integrationsApi } from '../services/api';
 import { format } from 'date-fns';
+import { io } from 'socket.io-client';
 
 interface Contact {
   id: string;
@@ -57,6 +60,12 @@ interface Contact {
     sentMessages: number;
     receivedMessages: number;
   };
+  lastMessage?: {
+    content?: string;
+    createdAt: string;
+    direction: string;
+  };
+  unreadCount?: number;
 }
 
 interface Message {
@@ -67,6 +76,10 @@ interface Message {
   mediaUrl?: string;
   mediaType?: string;
   createdAt: string;
+  sentAt?: string;
+  deliveredAt?: string;
+  readAt?: string;
+  scheduledAt?: string;
   fromContact?: { name?: string };
   toContact?: { name?: string };
 }
@@ -85,10 +98,68 @@ export default function Messages() {
   const [newConversationMode, setNewConversationMode] = useState(false);
   const [newConversationIntegration, setNewConversationIntegration] = useState('');
   const [newConversationPhone, setNewConversationPhone] = useState('');
+  const selectedContactRef = useRef(selectedContact);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const [messagesPage, setMessagesPage] = useState(1);
+  const [hasMoreMessages, setHasMoreMessages] = useState(true);
+
+  // Manter ref atualizada
+  useEffect(() => {
+    selectedContactRef.current = selectedContact;
+  }, [selectedContact]);
+
+  // Auto-scroll para o fim quando mensagens mudam
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   useEffect(() => {
     loadIntegrations();
     loadContacts();
+
+    // Socket.io para updates em tempo real
+    const socket = io('http://localhost:4500');
+
+    socket.on('connect', () => {
+      console.log('✅ Socket conectado');
+    });
+
+    socket.on('message:new', (newMsg) => {
+      console.log('📨 Nova mensagem via socket:', newMsg);
+
+      // Atualizar lista de contatos sempre
+      loadContacts();
+
+      // Se estiver vendo conversa desse contato, recarregar mensagens
+      const currentContact = selectedContactRef.current;
+      if (currentContact) {
+        const isForThisContact =
+          newMsg.fromContactId === currentContact.id ||
+          newMsg.toContactId === currentContact.id;
+
+        console.log('Verificando contato:', {
+          currentContactId: currentContact.id,
+          fromContactId: newMsg.fromContactId,
+          toContactId: newMsg.toContactId,
+          isForThisContact
+        });
+
+        if (isForThisContact) {
+          // Recarregar todas as mensagens para garantir ordem correta
+          loadMessages(currentContact.id);
+
+          // Se for mensagem recebida, marcar como lida automaticamente
+          if (newMsg.direction === 'INBOUND' && newMsg.status === 'RECEIVED') {
+            messagesApi.updateStatus(newMsg.id, 'READ').catch(err =>
+              console.error('Erro ao marcar como lida:', err)
+            );
+          }
+        }
+      }
+    });
+
+    return () => socket.disconnect();
   }, []);
 
   useEffect(() => {
@@ -106,9 +177,54 @@ export default function Messages() {
 
   useEffect(() => {
     if (selectedContact) {
-      loadMessages(selectedContact.id);
+      setMessagesPage(1);
+      setMessages([]);
+      setHasMoreMessages(true);
+      loadMessages(selectedContact.id, 1);
+
+      // Marcar mensagens como lidas
+      markMessagesAsRead(selectedContact.id);
     }
   }, [selectedContact]);
+
+  // Detectar scroll no topo para carregar mais
+  useEffect(() => {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      if (container.scrollTop === 0 && hasMoreMessages && !loadingMessages && selectedContact) {
+        const nextPage = messagesPage + 1;
+        setMessagesPage(nextPage);
+        loadMoreMessages(selectedContact.id, nextPage);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [messagesPage, hasMoreMessages, loadingMessages, selectedContact]);
+
+  const markMessagesAsRead = async (contactId: string) => {
+    try {
+      // Buscar mensagens não lidas deste contato
+      const unreadMessages = await messagesApi.list({
+        contactId,
+        direction: 'INBOUND',
+        status: 'RECEIVED'
+      });
+
+      // Marcar todas como lidas
+      const msgs = unreadMessages.data.messages || unreadMessages.data;
+      for (const msg of msgs) {
+        await messagesApi.updateStatus(msg.id, 'READ');
+      }
+
+      // Atualizar contador
+      loadContacts();
+    } catch (error) {
+      console.error('Erro ao marcar como lidas:', error);
+    }
+  };
 
   const loadContacts = async () => {
     try {
@@ -122,11 +238,17 @@ export default function Messages() {
     }
   };
 
-  const loadMessages = async (contactId: string) => {
+  const loadMessages = async (contactId: string, page: number = 1) => {
     try {
       setLoadingMessages(true);
-      const { data } = await messagesApi.list({ contactId });
-      setMessages(data.messages || data);
+      const { data } = await messagesApi.list({ contactId, page, limit: 20 });
+      const msgs = data.messages || data;
+
+      // Backend já retorna ordenado (antigas → novas)
+      setMessages(msgs);
+
+      // Verificar se tem mais páginas
+      setHasMoreMessages(data.pagination && data.pagination.page < data.pagination.pages);
     } catch (error) {
       console.error('Erro ao carregar mensagens:', error);
     } finally {
@@ -134,8 +256,48 @@ export default function Messages() {
     }
   };
 
+  const loadMoreMessages = async (contactId: string, page: number) => {
+    try {
+      setLoadingMessages(true);
+
+      // Salvar altura atual do scroll antes de adicionar mensagens
+      const container = messagesContainerRef.current;
+      const oldScrollHeight = container?.scrollHeight || 0;
+      const oldScrollTop = container?.scrollTop || 0;
+
+      const { data } = await messagesApi.list({ contactId, page, limit: 20 });
+      const msgs = data.messages || data;
+
+      if (msgs.length > 0) {
+        // Adicionar mensagens antigas NO INÍCIO (prepend)
+        setMessages(prev => [...msgs, ...prev]);
+        setHasMoreMessages(data.pagination && data.pagination.page < data.pagination.pages);
+
+        // Aguardar render e restaurar posição do scroll
+        setTimeout(() => {
+          if (container) {
+            const newScrollHeight = container.scrollHeight;
+            const heightDiff = newScrollHeight - oldScrollHeight;
+            container.scrollTop = oldScrollTop + heightDiff;
+          }
+        }, 0);
+      } else {
+        setHasMoreMessages(false);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar mais mensagens:', error);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
   const handleSendMessage = async () => {
-    if (!newMessage.trim()) return;
+    console.log('handleSendMessage chamado!', { newMessage, selectedContact, newConversationMode });
+
+    if (!newMessage.trim()) {
+      console.log('Mensagem vazia, abortando');
+      return;
+    }
 
     try {
       if (newConversationMode) {
@@ -347,30 +509,53 @@ export default function Messages() {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <Box display="flex" alignItems="center" gap={1}>
+                          <Box display="flex" alignItems="center" justifyContent="space-between">
                             <Typography variant="body2" fontWeight={600}>
                               {contact.name || 'Sem nome'}
                             </Typography>
+                            <Box display="flex" alignItems="center" gap={1}>
+                              {contact.lastMessage && (
+                                <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                                  {format(new Date(contact.lastMessage.createdAt), 'HH:mm')}
+                                </Typography>
+                              )}
+                              {(contact.unreadCount ?? 0) > 0 && (
+                                <Badge
+                                  badgeContent={contact.unreadCount}
+                                  color="primary"
+                                  max={99}
+                                  sx={{
+                                    '& .MuiBadge-badge': {
+                                      position: 'static',
+                                      transform: 'none',
+                                      fontSize: '0.65rem',
+                                      height: 18,
+                                      minWidth: 18,
+                                      padding: '0 5px'
+                                    }
+                                  }}
+                                />
+                              )}
+                            </Box>
                           </Box>
                         }
                         secondary={
                           <Box>
-                            <Typography variant="caption" color="text.secondary" display="block" noWrap>
+                            {contact.lastMessage && (
+                              <Typography variant="caption" color="text.secondary" display="block" noWrap sx={{ maxWidth: 200 }}>
+                                {contact.lastMessage.direction === 'OUTBOUND' ? '✓ ' : ''}
+                                {contact.lastMessage.content || '(mídia)'}
+                              </Typography>
+                            )}
+                            <Typography variant="caption" color="text.secondary" display="block" noWrap sx={{ fontSize: '0.7rem' }}>
                               {contact.phoneNumber || contact.email}
                             </Typography>
-                            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.65rem' }}>
+                            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.65rem', opacity: 0.7 }}>
                               {contact.integration.name}
                             </Typography>
                           </Box>
                         }
                       />
-                      <Box textAlign="right">
-                        <Badge badgeContent={contact._count.receivedMessages} color="primary" max={99}>
-                          <Typography variant="caption" color="text.secondary">
-                            {contact._count.sentMessages + contact._count.receivedMessages}
-                          </Typography>
-                        </Badge>
-                      </Box>
                     </ListItemButton>
                   </ListItem>
                 ))
@@ -404,26 +589,60 @@ export default function Messages() {
                   backgroundColor: alpha(theme.palette.primary.main, 0.05),
                 }}
               >
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
-                    {selectedContact.name?.[0]?.toUpperCase() || '?'}
-                  </Avatar>
-                  <Box>
-                    <Typography variant="body1" fontWeight={600}>
-                      {selectedContact.name || 'Sem nome'}
+                {newConversationMode ? (
+                  <Box width="100%">
+                    <Typography variant="body1" fontWeight={600} mb={2}>
+                      Nova Mensagem
                     </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {selectedContact.phoneNumber || selectedContact.email} • {selectedContact.integration.name}
-                    </Typography>
+                    <Box display="flex" gap={2}>
+                      <FormControl size="small" sx={{ flex: 1 }}>
+                        <InputLabel>Selecione a Integração</InputLabel>
+                        <Select
+                          value={newConversationIntegration}
+                          label="Selecione a Integração"
+                          onChange={(e) => setNewConversationIntegration(e.target.value)}
+                        >
+                          {integrations.filter(i => i.status === 'ACTIVE').map((integration) => (
+                            <MenuItem key={integration.id} value={integration.id}>
+                              {integration.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <TextField
+                        size="small"
+                        placeholder="Número de telefone"
+                        value={newConversationPhone}
+                        onChange={(e) => setNewConversationPhone(e.target.value)}
+                        sx={{ flex: 1 }}
+                      />
+                    </Box>
                   </Box>
-                </Box>
-                <IconButton>
-                  <MoreVert />
-                </IconButton>
+                ) : (
+                  <>
+                    <Box display="flex" alignItems="center" gap={2}>
+                      <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                        {selectedContact?.name?.[0]?.toUpperCase() || '?'}
+                      </Avatar>
+                      <Box>
+                        <Typography variant="body1" fontWeight={600}>
+                          {selectedContact?.name || 'Sem nome'}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {selectedContact?.phoneNumber || selectedContact?.email} • {selectedContact?.integration.name}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <IconButton>
+                      <MoreVert />
+                    </IconButton>
+                  </>
+                )}
               </Box>
 
               {/* Mensagens */}
               <Box
+                ref={messagesContainerRef}
                 sx={{
                   flex: 1,
                   overflow: 'auto',
@@ -476,16 +695,69 @@ export default function Messages() {
                               }}
                             />
                           )}
+                          {message.scheduledAt && message.status === 'PENDING' && (
+                            <Chip
+                              icon={<Schedule fontSize="small" />}
+                              label={`Agendada para ${format(new Date(message.scheduledAt), 'dd/MM HH:mm')}`}
+                              size="small"
+                              color="warning"
+                              variant="outlined"
+                              sx={{ mb: 1, fontSize: '0.7rem' }}
+                            />
+                          )}
                           <Typography variant="body2">{message.content}</Typography>
-                          <Box display="flex" alignItems="center" justifyContent="flex-end" gap={0.5} mt={0.5}>
-                            <Typography variant="caption" sx={{ opacity: 0.7, fontSize: '0.7rem' }}>
-                              {format(new Date(message.createdAt), 'HH:mm')}
+
+                          {/* Mostrar timestamps diferentes de criação */}
+                          {message.direction === 'OUTBOUND' && message.sentAt && message.sentAt !== message.createdAt && (
+                            <Typography variant="caption" display="block" sx={{ opacity: 0.6, fontSize: '0.65rem', mt: 0.5 }}>
+                              Enviada: {format(new Date(message.sentAt), 'dd/MM HH:mm:ss')}
                             </Typography>
-                            {getStatusIcon(message)}
-                          </Box>
+                          )}
+                          {message.deliveredAt && (
+                            <Typography variant="caption" display="block" sx={{ opacity: 0.6, fontSize: '0.65rem' }}>
+                              Entregue: {format(new Date(message.deliveredAt), 'dd/MM HH:mm:ss')}
+                            </Typography>
+                          )}
+
+                          <Tooltip
+                            title={
+                              <Box>
+                                <Typography variant="caption" display="block">
+                                  Criada: {format(new Date(message.createdAt), 'dd/MM/yyyy HH:mm:ss')}
+                                </Typography>
+                                {message.sentAt && (
+                                  <Typography variant="caption" display="block">
+                                    Enviada: {format(new Date(message.sentAt), 'dd/MM/yyyy HH:mm:ss')}
+                                  </Typography>
+                                )}
+                                {message.deliveredAt && (
+                                  <Typography variant="caption" display="block">
+                                    Entregue: {format(new Date(message.deliveredAt), 'dd/MM/yyyy HH:mm:ss')}
+                                  </Typography>
+                                )}
+                                {message.readAt && (
+                                  <Typography variant="caption" display="block">
+                                    Lida: {format(new Date(message.readAt), 'dd/MM/yyyy HH:mm:ss')}
+                                  </Typography>
+                                )}
+                              </Box>
+                            }
+                            arrow
+                          >
+                            <Box display="flex" alignItems="center" justifyContent="flex-end" gap={0.5} mt={0.5}>
+                              <Typography variant="caption" sx={{ opacity: 0.7, fontSize: '0.7rem' }}>
+                                {message.status === 'PENDING' && message.scheduledAt
+                                  ? format(new Date(message.scheduledAt), 'HH:mm')
+                                  : format(new Date(message.createdAt), 'HH:mm')}
+                              </Typography>
+                              {getStatusIcon(message)}
+                            </Box>
+                          </Tooltip>
                         </Box>
                       </Box>
                     ))}
+                    {/* Elemento invisível para scroll automático */}
+                    <div ref={messagesEndRef} />
                   </Box>
                 )}
               </Box>
