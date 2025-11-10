@@ -171,7 +171,7 @@ services:
   # Database Migration (runs once)
   db-migrate-hub:
     image: registry.gitlab.com/groupvortex/stackline-hub/api:latest
-    command: ["sh", "-c", "cd /app/packages/database && sleep 10 && npx prisma generate && npx prisma migrate deploy && echo 'Migrations applied successfully'"]
+    command: ["sh", "-c", "cd /app/packages/database && sleep 10 && npx prisma generate --schema=./prisma/schema.prisma && npx prisma migrate deploy --schema=./prisma/schema.prisma && echo 'Migrations applied successfully'"]
     networks:
       - vortex-main
     depends_on:
