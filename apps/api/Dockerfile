@@ -13,8 +13,8 @@ COPY packages/database ./packages/database
 # Copy API
 COPY apps/api ./apps/api
 
-# Install dependencies
-RUN npm ci --workspace=apps/api --workspace=packages/database
+# Install ALL dependencies (root + workspaces)
+RUN npm ci
 
 # Generate Prisma Client
 WORKDIR /app/packages/database

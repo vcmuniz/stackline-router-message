@@ -13,8 +13,8 @@ COPY packages/database ./packages/database
 # Copy Realtime
 COPY apps/realtime ./apps/realtime
 
-# Install dependencies
-RUN npm ci --workspace=apps/realtime --workspace=packages/database
+# Install ALL dependencies (root + workspaces)
+RUN npm ci
 
 # Generate Prisma Client
 WORKDIR /app/packages/database
