@@ -119,7 +119,8 @@ export default function Messages() {
     loadContacts();
 
     // Socket.io para updates em tempo real
-    const socket = io('http://localhost:4500');
+    const wsUrl = window.APP_CONFIG?.WS_URL || 'http://localhost:4500';
+    const socket = io(wsUrl);
 
     socket.on('connect', () => {
       console.log('✅ Socket conectado');

@@ -1,6 +1,16 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+// Runtime config (dinâmico baseado no domínio)
+declare global {
+  interface Window {
+    APP_CONFIG?: {
+      API_URL: string;
+      WS_URL: string;
+    };
+  }
+}
+
+const API_URL = window.APP_CONFIG?.API_URL || import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 // Criar instância do axios
 const api = axios.create({
