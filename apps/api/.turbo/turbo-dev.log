@@ -2419,3 +2419,31 @@ Queue dashboard: http://localhost:4000/admin/queues
 Connected to database
 Default email templates created
 API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Connected to database
+Default email templates created
+API listening on http://localhost:4000
+Queue dashboard: http://localhost:4000/admin/queues
+📨 Webhook recebido: {
+  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
+  integrationName: 'At',
+  type: 'WHATSAPP_EVOLUTION',
+  event: 'messages.update',
+  timestamp: '2025-11-10T14:29:27.976Z'
+}
+📦 Payload: {
+  "event": "messages.update",
+  "instance": "at01",
+  "data": {
+    "keyId": "3EB03C149CE61EEA82CBE8",
+    "remoteJid": "5524974024211@s.whatsapp.net",
+    "fromMe": true,
+    "status": "SERVER_ACK",
+    "instanceId": "12e458ad-59ec-4ba9-b2bc-ddb706712de2",
+    "messageId": "cmht7lt7s00tslg50c6agiksm"
+  },
+  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
+  "date_time": "2025-11-10T11:29:27.341Z",
+  "sender": "5521971817825@s.whatsapp.net",

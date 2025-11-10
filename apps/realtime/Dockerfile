@@ -20,10 +20,6 @@ RUN npm ci --workspace=apps/realtime --workspace=packages/database
 WORKDIR /app/packages/database
 RUN npx prisma generate --schema=./prisma/schema.prisma
 
-# Build Realtime
-WORKDIR /app/apps/realtime
-RUN npm run build
-
 # Production stage
 FROM node:20-alpine
 
@@ -36,13 +32,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /app
 
-# Copy built files and dependencies
+# Copy everything from builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/apps/realtime ./apps/realtime
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/tsconfig.base.json ./
 
 WORKDIR /app/apps/realtime
 
 EXPOSE 4500
 
-CMD ["node", "dist/index.js"]
+# Run with ts-node
+CMD ["npx", "ts-node", "src/index.ts"]

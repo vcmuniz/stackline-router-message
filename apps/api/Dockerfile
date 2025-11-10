@@ -20,14 +20,10 @@ RUN npm ci --workspace=apps/api --workspace=packages/database
 WORKDIR /app/packages/database
 RUN npx prisma generate --schema=./prisma/schema.prisma
 
-# Build API
-WORKDIR /app/apps/api
-RUN npm run build
-
 # Production stage
 FROM node:20-alpine
 
-# Install OpenSSL and tzdata
+# Install OpenSSL, tzdata and ts-node
 RUN apk add --no-cache openssl tzdata
 
 # Set timezone
@@ -36,13 +32,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /app
 
-# Copy built files and dependencies
+# Copy everything from builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/apps/api ./apps/api
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/tsconfig.base.json ./
 
 WORKDIR /app/apps/api
 
 EXPOSE 4000
 
-CMD ["node", "dist/index.js"]
+# Run with ts-node instead of compiled JS
+CMD ["npx", "ts-node", "src/index.ts"]
