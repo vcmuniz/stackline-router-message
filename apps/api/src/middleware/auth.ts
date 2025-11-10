@@ -6,6 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'devsecret';
 export interface AuthRequest extends Request {
   userId?: number;
   prisma?: any;
+  headers: any;
 }
 
 export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {

@@ -9,6 +9,7 @@ const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 export interface ApiKeyRequest extends Request {
   apiKey?: any;
   userId?: number;
+  headers: any;
 }
 
 export const apiKeyMiddleware = async (req: ApiKeyRequest, res: Response, next: NextFunction) => {

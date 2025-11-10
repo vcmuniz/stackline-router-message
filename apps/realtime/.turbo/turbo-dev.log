@@ -430,3 +430,17 @@ client connected fYmgT4wa-70mINlMAAAL
 📊 Resumo: 0 enviadas, 0 falhadas
 📨 [Queue] Processando...
 📊 0 mensagens prontas
+📊 Resumo: 0 enviadas, 0 falhadas
+📨 [Queue] Processando...
+📊 0 mensagens prontas
+📊 Resumo: 0 enviadas, 0 falhadas
+📨 [Queue] Processando...
+📊 0 mensagens prontas
+📊 Resumo: 0 enviadas, 0 falhadas
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+Realtime server on 4500
+📨 Cron de fila de mensagens ativo (executa a cada minuto)
+🧹 Cron de limpeza ativo (executa diariamente às 03:00)
+📨 [Queue] Processando...
+📊 0 mensagens prontas
