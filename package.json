@@ -9,7 +9,17 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "docker:build": "npm run docker:build:admin && npm run docker:build:api && npm run docker:build:realtime",
+    "docker:build:admin": "docker build -t registry.gitlab.com/groupvortex/stackline-hub/admin:latest -f apps/admin/Dockerfile .",
+    "docker:build:api": "docker build -t registry.gitlab.com/groupvortex/stackline-hub/api:latest -f apps/api/Dockerfile .",
+    "docker:build:realtime": "docker build -t registry.gitlab.com/groupvortex/stackline-hub/realtime:latest -f apps/realtime/Dockerfile .",
+    "docker:push": "npm run docker:push:admin && npm run docker:push:api && npm run docker:push:realtime",
+    "docker:push:admin": "docker push registry.gitlab.com/groupvortex/stackline-hub/admin:latest",
+    "docker:push:api": "docker push registry.gitlab.com/groupvortex/stackline-hub/api:latest",
+    "docker:push:realtime": "docker push registry.gitlab.com/groupvortex/stackline-hub/realtime:latest",
+    "docker:all": "npm run docker:build && npm run docker:push",
+    "deploy": "docker stack deploy -c docker-compose.prod.yml stackline-hub"
   },
   "devDependencies": {
     "@types/express": "^5.0.5",
