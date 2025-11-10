@@ -71,6 +71,7 @@ services:
         - "traefik.http.routers.admin-hub.priority=1"
         - "traefik.http.routers.admin-hub.entrypoints=websecure"
         - "traefik.http.routers.admin-hub.tls=true"
+        - "traefik.http.routers.admin-hub.tls.certresolver=letsencrypt"
         - "traefik.http.routers.admin-hub.service=admin-hub"
         - "traefik.http.services.admin-hub.loadbalancer.server.port=80"
     environment:
@@ -102,6 +103,7 @@ services:
         - "traefik.http.routers.api-hub.priority=10"
         - "traefik.http.routers.api-hub.entrypoints=websecure"
         - "traefik.http.routers.api-hub.tls=true"
+        - "traefik.http.routers.api-hub.tls.certresolver=letsencrypt"
         - "traefik.http.middlewares.api-hub-strip.stripprefix.prefixes=/api"
         - "traefik.http.routers.api-hub.middlewares=api-hub-strip"
         - "traefik.http.routers.api-hub.service=api-hub"
@@ -111,12 +113,14 @@ services:
         - "traefik.http.routers.apiv1-hub.priority=11"
         - "traefik.http.routers.apiv1-hub.entrypoints=websecure"
         - "traefik.http.routers.apiv1-hub.tls=true"
+        - "traefik.http.routers.apiv1-hub.tls.certresolver=letsencrypt"
         - "traefik.http.routers.apiv1-hub.service=api-hub"
         # Rota para /webhook (webhooks inbound)
         - "traefik.http.routers.webhook-hub.rule=Host(`hub.clubfacts.com.br`) && PathPrefix(`/webhook`)"
         - "traefik.http.routers.webhook-hub.priority=12"
         - "traefik.http.routers.webhook-hub.entrypoints=websecure"
         - "traefik.http.routers.webhook-hub.tls=true"
+        - "traefik.http.routers.webhook-hub.tls.certresolver=letsencrypt"
         - "traefik.http.routers.webhook-hub.service=api-hub"
     environment:
       - NODE_ENV=production
@@ -155,6 +159,7 @@ services:
         - "traefik.http.routers.realtime-hub.priority=10"
         - "traefik.http.routers.realtime-hub.entrypoints=websecure"
         - "traefik.http.routers.realtime-hub.tls=true"
+        - "traefik.http.routers.realtime-hub.tls.certresolver=letsencrypt"
         - "traefik.http.middlewares.realtime-hub-strip.stripprefix.prefixes=/realtime"
         - "traefik.http.routers.realtime-hub.middlewares=realtime-hub-strip"
         - "traefik.http.routers.realtime-hub.service=realtime-hub"
