@@ -7,6 +7,25 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // Listar todas as integrações
+// Buscar por instanceName
+router.get("/by-instance/:instanceName", authMiddleware, async (req: any, res) => {
+  try {
+    const integration = await prisma.integration.findFirst({
+      where: {
+        userId: req.userId,
+        type: "WHATSAPP_EVOLUTION"
+      }
+    });
+    const config = integration?.config as any;
+    if (config?.instanceName === req.params.instanceName) {
+      return res.json(integration);
+    }
+    return res.status(404).json({ error: "Integration not found" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch integration" });
+  }
+});
+
 router.get('/', authMiddleware, async (req: any, res) => {
   try {
     const integrations = await prisma.integration.findMany({

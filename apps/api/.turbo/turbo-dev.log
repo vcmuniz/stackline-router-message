@@ -11,32 +11,3 @@ Connected to database
 Default email templates created
 API listening on http://localhost:4000
 Queue dashboard: http://localhost:4000/admin/queues
-📨 Webhook recebido: {
-  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
-  integrationName: 'At',
-  type: 'WHATSAPP_EVOLUTION',
-  event: 'connection.update',
-  timestamp: '2025-11-10T20:11:58.588Z'
-}
-📦 Payload: {
-  "event": "connection.update",
-  "instance": "at01",
-  "data": {
-    "instance": "at01",
-    "wuid": "5521971817825@s.whatsapp.net",
-    "profileName": "Victor Muniz",
-    "profilePictureUrl": null,
-    "state": "open",
-    "statusReason": 200
-  },
-  "destination": "https://hub.stackline.com.br/webhook/3a0cedae15156047a43d49034f2878ec",
-  "date_time": "2025-11-10T17:01:49.947Z",
-  "sender": "5521971817825@s.whatsapp.net",
-  "server_url": "https://chatwoot-clubfacts-evolution.833zws.easypanel.host",
-  "apikey": "F95CD911-8103-4389-847C-672557731BAE"
-}
-📨 Webhook recebido: {
-  integrationId: '2d1c6342-39fc-42d1-a69e-1366e88eb77f',
-  integrationName: 'At',
-  type: 'WHATSAPP_EVOLUTION',
-  event: 'connection.update',

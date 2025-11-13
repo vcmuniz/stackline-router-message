@@ -139,7 +139,8 @@ router.post('/:webhookId', logWebhook, validateWebhook, async (req: any, res) =>
 
       // Notificar realtime via HTTP
       try {
-        await require('axios').default.post('http://localhost:4500/notify/message', { message });
+        const realtimeUrl = process.env.REALTIME_URL || 'http://localhost:4500';
+        await require('axios').default.post(`${realtimeUrl}/notify/message`, { message });
       } catch (err) {
         console.error('Erro ao notificar realtime:', err);
       }

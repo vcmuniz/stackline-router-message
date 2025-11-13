@@ -131,6 +131,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=hub_redis_prod_2024!
       - WEBHOOK_BASE_URL=https://hub.clubfacts.com.br
+      - REALTIME_URL=http://realtime-hub:4500
       - TZ=America/Sao_Paulo
       - CORS_ORIGIN=https://hub.clubfacts.com.br
       - LOG_LEVEL=info

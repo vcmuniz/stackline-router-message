@@ -138,33 +138,23 @@ export class EvolutionApiService {
     try {
       const number = this.formatPhoneNumber(to);
 
-      let endpoint = '';
-      let payload: any = {
+      // Endpoint unificado sendMedia (Evolution API v2+)
+      const payload: any = {
         number,
-        caption
+        mediatype: type,
+        media: mediaUrl,
+        caption: caption || ''
       };
 
-      switch (type) {
-        case 'image':
-          endpoint = `${this.apiUrl}/message/sendImage/${this.instanceName}`;
-          payload.image = mediaUrl;
-          break;
-        case 'video':
-          endpoint = `${this.apiUrl}/message/sendVideo/${this.instanceName}`;
-          payload.video = mediaUrl;
-          break;
-        case 'audio':
-          endpoint = `${this.apiUrl}/message/sendAudio/${this.instanceName}`;
-          payload.audio = mediaUrl;
-          break;
-        case 'document':
-          endpoint = `${this.apiUrl}/message/sendDocument/${this.instanceName}`;
-          payload.document = mediaUrl;
-          payload.fileName = 'document';
-          break;
+      if (type === 'document') {
+        payload.fileName = 'document';
       }
 
-      const response = await axios.post(endpoint, payload, { headers: this.getHeaders() });
+      const response = await axios.post(
+        `${this.apiUrl}/message/sendMedia/${this.instanceName}`,
+        payload,
+        { headers: this.getHeaders() }
+      );
 
       return {
         success: true,
