@@ -133,6 +133,8 @@ router.post('/send', authMiddleware, async (req: any, res) => {
       content,
       mediaUrl,
       mediaType,
+      scheduledAt,
+      forceImmediate = true, // Padrão true para chat UI
       replyToId,
       threadId
     } = req.body;
@@ -153,7 +155,7 @@ router.post('/send', authMiddleware, async (req: any, res) => {
       return res.status(400).json({ error: 'Integration is not active' });
     }
 
-    // Usar messageQueueService com forceImmediate para envio direto
+    // Usar messageQueueService (forceImmediate vem do request)
     const message = await messageQueueService.createQueueMessage({
       integrationId,
       toPhone: toContact.phoneNumber,
@@ -163,7 +165,8 @@ router.post('/send', authMiddleware, async (req: any, res) => {
       content,
       mediaUrl,
       mediaType,
-      forceImmediate: true, // Envio imediato
+      scheduledAt: scheduledAt ? new Date(scheduledAt) : undefined,
+      forceImmediate, // Usa valor do request (default true)
       metadata: {
         replyToId,
         threadId

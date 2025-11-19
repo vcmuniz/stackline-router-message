@@ -16,6 +16,16 @@ import {
   useTheme,
   alpha,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Autocomplete,
 } from '@mui/material';
 import {
   Schedule,
@@ -26,9 +36,10 @@ import {
   Sms,
   Telegram,
   Send as SendIcon,
+  Add,
 } from '@mui/icons-material';
 import Layout from '../components/Layout';
-import { messagesApi } from '../services/api';
+import { messagesApi, integrationsApi, contactsApi } from '../services/api';
 import { format, addDays, startOfDay } from 'date-fns';
 
 interface ScheduledMessage {
@@ -53,10 +64,39 @@ export default function ScheduledMessages() {
   const [messages, setMessages] = useState<ScheduledMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [openDialog, setOpenDialog] = useState(false);
+  const [integrations, setIntegrations] = useState<any[]>([]);
+  const [contacts, setContacts] = useState<any[]>([]);
+  const [selectedContact, setSelectedContact] = useState<any>(null);
+  const [formData, setFormData] = useState({
+    integrationId: '',
+    phone: '',
+    message: '',
+    scheduledAt: '',
+  });
 
   useEffect(() => {
     loadScheduledMessages();
+    loadIntegrations();
   }, []);
+
+  const loadIntegrations = async () => {
+    try {
+      const { data } = await integrationsApi.list();
+      setIntegrations(data.filter((i: any) => i.status === 'ACTIVE'));
+    } catch (error) {
+      console.error('Erro ao carregar integrações:', error);
+    }
+  };
+
+  const loadContacts = async (integrationId: string) => {
+    try {
+      const { data } = await contactsApi.list(integrationId);
+      setContacts(data.contacts || data);
+    } catch (error) {
+      console.error('Erro ao carregar contatos:', error);
+    }
+  };
 
   const loadScheduledMessages = async () => {
     try {
@@ -91,6 +131,23 @@ export default function ScheduledMessages() {
       loadScheduledMessages();
     } catch (error) {
       console.error('Erro ao enviar:', error);
+    }
+  };
+
+  const handleSchedule = async () => {
+    try {
+      await messagesApi.send({
+        integrationId: formData.integrationId,
+        toContact: { phoneNumber: formData.phone },
+        content: formData.message,
+        scheduledAt: new Date(formData.scheduledAt).toISOString(),
+        forceImmediate: false
+      });
+      setOpenDialog(false);
+      setFormData({ integrationId: '', phone: '', message: '', scheduledAt: '' });
+      loadScheduledMessages();
+    } catch (error) {
+      console.error('Erro ao agendar:', error);
     }
   };
 
@@ -136,13 +193,22 @@ export default function ScheduledMessages() {
               {messages.length} mensagens programadas para envio
             </Typography>
           </Box>
-          <Button
-            variant="outlined"
-            startIcon={<Refresh />}
-            onClick={loadScheduledMessages}
-          >
-            Atualizar
-          </Button>
+          <Box display="flex" gap={2}>
+            <Button
+              variant="outlined"
+              startIcon={<Refresh />}
+              onClick={loadScheduledMessages}
+            >
+              Atualizar
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<Add />}
+              onClick={() => setOpenDialog(true)}
+            >
+              Agendar Mensagem
+            </Button>
+          </Box>
         </Box>
 
         {/* Calendário de dias */}
@@ -317,6 +383,126 @@ export default function ScheduledMessages() {
             </Box>
           ))
         )}
+
+        {/* Dialog Agendar Mensagem */}
+        <Dialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              backgroundColor: theme.palette.background.paper,
+              zIndex: 1400,
+            }
+          }}
+          BackdropProps={{
+            sx: {
+              marginTop: 0,
+            }
+          }}
+        >
+          <DialogTitle>Agendar Nova Mensagem</DialogTitle>
+          <DialogContent>
+            <Box display="flex" flexDirection="column" gap={2} mt={2}>
+              <FormControl fullWidth>
+                <InputLabel>Integração</InputLabel>
+                <Select
+                  value={formData.integrationId}
+                  onChange={(e) => {
+                    const intId = e.target.value;
+                    setFormData({ ...formData, integrationId: intId, phone: '' });
+                    setSelectedContact(null);
+                    loadContacts(intId);
+                  }}
+                  label="Integração"
+                >
+                  {integrations.map((int) => (
+                    <MenuItem key={int.id} value={int.id}>
+                      {int.name} ({int.type})
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              {formData.integrationId && (
+                <Autocomplete
+                  options={contacts}
+                  getOptionLabel={(option) => option.name || option.phoneNumber || option.email || ''}
+                  value={selectedContact}
+                  onChange={(e, value) => {
+                    setSelectedContact(value);
+                    setFormData({
+                      ...formData,
+                      phone: value?.phoneNumber || value?.email || value?.telegramId || ''
+                    });
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Selecione um contato (ou digite manualmente abaixo)"
+                      placeholder="Buscar contato..."
+                    />
+                  )}
+                  renderOption={(props, option) => (
+                    <li {...props}>
+                      <Box>
+                        <Typography variant="body2" fontWeight={600}>
+                          {option.name || 'Sem nome'}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {option.phoneNumber || option.email}
+                        </Typography>
+                      </Box>
+                    </li>
+                  )}
+                  fullWidth
+                />
+              )}
+
+              <TextField
+                label="Telefone/Grupo (ou selecione contato acima)"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="5511999999999 ou 120363...@g.us"
+                fullWidth
+                helperText="Digite manualmente ou selecione um contato acima"
+              />
+
+              <TextField
+                label="Mensagem"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                multiline
+                rows={4}
+                fullWidth
+              />
+
+              <TextField
+                label="Data e Hora"
+                type="datetime-local"
+                value={formData.scheduledAt}
+                onChange={(e) => setFormData({ ...formData, scheduledAt: e.target.value })}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenDialog(false)}>
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleSchedule}
+              variant="contained"
+              disabled={!formData.integrationId || !formData.phone || !formData.message || !formData.scheduledAt}
+            >
+              Agendar
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Layout>
   );
