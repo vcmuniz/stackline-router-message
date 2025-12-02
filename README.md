@@ -41,8 +41,8 @@ O cloudflared inicia automaticamente e expõe a API em `https://hub.stackline.co
 3. Preencha:
    - **Nome:** WhatsApp Atendimento
    - **Tipo:** WhatsApp Evolution API
-   - **URL da Evolution API:** `https://chatwoot-clubfacts-evolution.833zws.easypanel.host`
-   - **API Key:** `429683C4C977415CAAFCCE10F7D57E11`
+   - **URL da Evolution API:** `https://******`
+   - **API Key:** `******`
    - **Nome da Instância:** `principal` (use nome único, sem espaços)
 4. Clique em "Criar"
 5. Após criada, clique em "Conectar"

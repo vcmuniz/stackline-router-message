@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "nodemon --watch src --watch ../../packages/database/src --exec ts-node src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "lint": "echo 'no lint'"
+    "lint": "echo 'no lint'",
+    "test": "../../node_modules/.bin/jest",
+    "test:watch": "../../node_modules/.bin/jest --watch",
+    "test:coverage": "../../node_modules/.bin/jest --coverage"
   },
   "dependencies": {
     "@bull-board/api": "^5.9.1",

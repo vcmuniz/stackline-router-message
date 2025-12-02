@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "strict": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": ["jest", "node"]
   },
   "include": ["src"]
 }
