@@ -78,3 +78,10 @@ export function createTestApp() {
 
   return app;
 }
+
+// Placeholder test to prevent Jest from failing on this file
+describe('Test Setup', () => {
+  it('should export createTestApp', () => {
+    expect(createTestApp).toBeDefined();
+  });
+});
